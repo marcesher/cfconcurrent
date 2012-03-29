@@ -26,6 +26,15 @@ component output="false" accessors="true"{
 	variables.timeUnit = objectFactory.createTimeUnit();
 	variables.status = "stopped";
 	
+	
+	/*WARNING: you may be tempted to call stop() either on init or on start. Do Not Do So.
+		These services might use other services, and calling stop() would have the effect of undoing
+		work that you *just* did -- any executors you create prior to calling start() on another
+		service would cancel those executors.
+		
+		It is the responsibility of the user of this library to call stop() on services he/she starts
+	*/
+	
 	public function init( String appName ){
 		
 		structAppend( variables, arguments );
@@ -35,7 +44,7 @@ component output="false" accessors="true"{
 	
 	/* Lifecycle methods*/
 	public function start(){
-		//doesn't do much, does it? This will be overridden by implementers
+		//This will be overridden by implementers
 		status = "started";
 		return this;
 	}

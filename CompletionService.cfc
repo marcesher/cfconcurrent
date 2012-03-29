@@ -9,10 +9,11 @@ component extends="ExecutorService" accessors="true" output="false"{
 	property name="completionQueue";
 	property name="workExecutor";
 	property name="completionService";
-	property name="completionQueueExecutor";
+	property name="completionQueueProcessService";
 	
 	variables.completionQueueProcessTask = "";
-	variables.completionQueueProcessTaskProxy = "";
+	variables.completionQueueProcessTaskFuture = "";
+	variables.completionQueueProcessTaskID = "completionQueueProcessor";
 
 	/**
 	* @appName The unique application name for this Completion service
@@ -31,13 +32,11 @@ component extends="ExecutorService" accessors="true" output="false"{
 		variables.completionQueue = objectFactory.createQueue( maxCompletionQueueSize );
 		variables.completionService = objectFactory.createCompletionService( workExecutor, completionQueue );
 		setSubmissionTarget( completionService );
-		variables.completionQueueExecutor = objectFactory.createScheduledThreadPoolExecutor( 1 );
+		
+		variables.completionQueueProcessService = new ScheduledExecutorService( appName, 1 ).start();
 		
 		//in the event that a completion task has been set prior to start(), we'll schedule it now
 		scheduleCompletionTask();
-		
-		//store the executor for sane destructability
-		storeExecutor( "completionQueueExecutor", variables.completionQueueExecutor );
 		
 		return this;
 	}
@@ -46,27 +45,19 @@ component extends="ExecutorService" accessors="true" output="false"{
 	* A Task CFC with a void run() method
 	*/
 	public function setCompletionQueueProcessTask( completionQueueProcessTask ){
-		objectFactory.ensureRunnableTask( arguments.completionQueueProcessTask );
-		
-		if( NOT isSimpleValue(variables.completionQueueProcessTaskProxy) ){
-			completionQueueExecutor.remove( variables.completionQueueProcessTaskProxy );
-		}
 		
 		structAppend( variables, arguments );
-		variables.completionQueueProcessTaskProxy = objectFactory.createRunnableProxy( completionQueueProcessTask );
 		
-		scheduleCompletionTask();
-		
-		return variables.completionQueueProcessTaskProxy;
+		completionQueueProcessFuture = scheduleCompletionTask();
 	}
 	
 	private function scheduleCompletionTask(){
 		logMessage("Starting to schedule completion task");
-		if( structKeyExists( variables, "completionQueueExecutor") AND NOT isSimpleValue(variables.completionQueueProcessTaskProxy) ){
+		if( structKeyExists( variables, "completionQueueProcessService") AND NOT isSimpleValue(variables.completionQueueProcessTask) ){
 			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency#" );
 			
 			completionQueueProcessTask.setCompletionService( getCompletionService() );
-			variables.completionQueueExecutor.scheduleAtFixedRate( completionQueueProcessTaskProxy, completionQueueProcessFrequency, completionQueueProcessFrequency, timeUnit.SECONDS );
+			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, "seconds");
 		}
 	}
 
