@@ -15,7 +15,7 @@ component extends="mxunit.framework.TestCase"{
 	function completed_tasks_are_polled(){
 		var task1 = new simpleCallableTask("task1");
 		var task2 = new simpleCallableTask("task2");
-		var factory = completionservice.getProxyFactory();
+		var factory = completionservice.getObjectFactory();
 		
 		var proxy1 = factory.createCallableProxy(task1);  
 		var proxy2 = factory.createCallableProxy(task2); 

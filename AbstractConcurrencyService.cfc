@@ -2,11 +2,12 @@ component output="false" accessors="true"{
 
 	property name="appName" type="string";
 	property name="status" type="string";
-	property name="proxyFactory";
+	property name="objectFactory";
 	property name="maxConcurrent" type="numeric";
 	property name="loggingEnabled" type="boolean";
 	property name="logName" type="string";
 	property name="timeUnit" hint="a java.util.concurrent.TimeUnit instance";
+	property name="submissionTarget";
 	
 	/*
 		storage scope is a server-scoped bucket into which we put "things that can shut down";
@@ -21,16 +22,13 @@ component output="false" accessors="true"{
 	variables.logName = "cfconcurrent";
 	variables.loggingEnabled = false;
 	variables.baseStorageScopeName = "__cfconcurrent";
-	variables.timeUnit = createObject( "java", "java.util.concurrent.TimeUnit" );
+	variables.objectFactory = new cfconcurrent.ObjectFactory();
+	variables.timeUnit = objectFactory.createTimeUnit();
 	variables.status = "stopped";
 	
 	public function init( String appName ){
 		
 		structAppend( variables, arguments );
-		shutdownAllExecutors();
-		
-		variables.proxyFactory = new cfconcurrent.ProxyFactory();
-		
 		return this;
 	}
 	
@@ -95,20 +93,12 @@ component output="false" accessors="true"{
 		return createObject("java", "java.lang.Runtime").getRuntime().availableProcessors();
 	}
 	
-	public function ensureRunnableTask( task ){
-		if( NOT isObject(task) OR NOT structKeyExists( task, "run" ) ){
-			throw("Task does not have a run() method", "TaskNotRunnable")
-		}
-	}
-	
-	public function ensureCallableTask( task ){
-		if( NOT isObject(task) OR NOT structKeyExists( task, "call" ) ){
-			throw("Task does not have a call() method", "TaskNotCallable")
-		}
-	}
-	
 	package function storeExecutor( string name, any executor ){
 		var scope = getStorageScope();
+		if( structKeyExists( scope, arguments.name ) ){
+			logMessage( "Executor named #arguments.name# already existed. Shutting it down and replacing it" );
+			scope[ arguments.name ].shutdownNow();
+		}
 		scope[ arguments.name ] = arguments.executor;
 		return this;
 	}
