@@ -48,6 +48,7 @@ component extends="mxunit.framework.TestCase"{
 		
 		var queue = service.getScheduledExecutor().getQueue();
 		assertEquals(2, arrayLen(queue.toArray()));
+		assertEquals(2, structCount(service.getStoredTasks()));
 		
 		var cancelled1 = service.cancelTask( "task1" );
 		var cancelled2 = service.cancelTask( "task2" );
@@ -58,5 +59,6 @@ component extends="mxunit.framework.TestCase"{
 		debug(queue);
 		debug(queue.toArray());
 		assertEquals(0, arrayLen(queue.toArray()));
+		assertEquals(0, structCount(service.getStoredTasks()));
 	}
 }
