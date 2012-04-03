@@ -1,0 +1,13 @@
+component{
+
+	this.name = "cfconcurrent_tests";
+
+	this.ormEnabled = true;
+	this.datasource = "cfartgallery";
+	//root = getDirectoryFromPath(getCurrentTemplatePath());
+	//this.mappings["/cfconcurrent"] = root;
+
+	//ormPaths = ["/cfconcurrent/examples/ormInExecutor/model"];
+	this.ormSettings = {flushAtRequestEnd = false, automanageSession = false, logsql = true};
+
+}
