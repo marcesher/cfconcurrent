@@ -2,7 +2,7 @@ component extends="mxunit.framework.TestCase"{
 
 
 	function setUp(){
-		service = new cfconcurrent.AbstractConcurrencyService("unittest");
+		service = new cfconcurrent.AbstractExecutorService("unittest");
 	}
 
 	function tearDown(){

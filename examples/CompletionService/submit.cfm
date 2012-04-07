@@ -13,7 +13,7 @@
 	</cfif>
 
 	<cfset task = new HelloTask( idStub & "_#i#", val(url.sleepTime) )>
-	<cfset future = application.completionService.submitCallable( task )>
+	<cfset future = application.completionService.submit( task )>
 </cfloop>
 
 <cfset workQueueSize = application.completionService.getWorkQueue().size()>

@@ -17,8 +17,8 @@ component extends="mxunit.framework.TestCase"{
 		var task2 = new fixture.simpleCallableTask("task2");
 		var factory = completionservice.getObjectFactory();
 
-		var proxy1 = factory.createCallableProxy(task1);
-		var proxy2 = factory.createCallableProxy(task2);
+		var proxy1 = factory.createSubmittableProxy(task1);
+		var proxy2 = factory.createSubmittableProxy(task2);
 
 		javaCompletionService.submit(proxy1);
 		javaCompletionService.submit(proxy2);

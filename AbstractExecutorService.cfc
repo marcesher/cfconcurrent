@@ -22,8 +22,7 @@ component output="false" accessors="true"{
 	variables.logName = "cfconcurrent";
 	variables.loggingEnabled = false;
 	variables.baseStorageScopeName = "__cfconcurrent";
-	variables.objectFactory = new cfconcurrent.ObjectFactory();
-	variables.timeUnit = objectFactory.createTimeUnit();
+
 	variables.status = "stopped";
 
 
@@ -35,22 +34,24 @@ component output="false" accessors="true"{
 		It is the responsibility of the user of this library to call stop() on services he/she starts
 	*/
 
-	public function init( String appName ){
+	public function init( String appName, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
 		structAppend( variables, arguments );
+		variables.timeUnit = objectFactory.createTimeUnit();
 		return this;
 	}
 
 
 	/* Lifecycle methods*/
+
 	public function start(){
 		//This will be overridden by implementers
 		status = "started";
 		return this;
 	}
 
-	public function stop(){
-		shutdownAllExecutors();
+	public function stop( timeout=100, timeUnit="milliseconds" ){
+		shutdownAllExecutors( timeout, timeUnit );
 		status = "stopped";
 		return this;
 	}
@@ -80,6 +81,97 @@ component output="false" accessors="true"{
 	public function isPaused(){
 		return getStatus() eq "paused";
 	}
+
+	/* Execution methods */
+
+	/**
+	* Submits an object for execution. Returns a Future if Callable and a RunnableFuture if Runnable
+	* If the service is not running, tasks are ignored
+	* @task A task instance. Object must expose either a call() or run() method.
+	*/
+	public function submit( task ){
+
+		if( isStarted() ){
+			var proxy = objectFactory.createSubmittableProxy( task );
+			return getSubmissionTarget().submit( proxy );
+
+		} else if( isPaused() ) {
+			writeLog("Service paused... ignoring submission");
+		} else if( isStopped() ){
+			throw("Service is stopped... not accepting new tasks");
+		}
+	}
+
+	/**
+	* Executes the tasks, returning an array of Futures when all complete.
+	* If the service is not running, tasks are ignored.
+	* @tasks An array of task instances. A task CFC must expose a call() method that returns a result
+	* @timeout Maximum time to wait. 0 indicates to wait until completion
+	* @timeUnit TimeUnit of the timeout argument, as a string. Defaults to "seconds".
+	*/
+	public function invokeAll( array tasks, timeout=0, timeUnit="seconds" ){
+		var results = [];
+		var proxies = [];
+
+		if( isStarted() ){
+
+			for( var task in tasks ){
+				arrayAppend( proxies, objectFactory.createSubmittableProxy( task ) );
+			}
+			if( timeout LTE 0 ){
+				return getSubmissionTarget().invokeAll( proxies );
+			} else {
+				return getSubmissionTarget().invokeAll( proxies, timeout, objectFactory.getTimeUnitByName( timeUnit ) );
+			}
+
+		} else if( isPaused() ) {
+			writeLog("Service paused... ignoring submission");
+		} else if( isStopped() ){
+			throw("Service is stopped... not accepting new tasks");
+		}
+	}
+
+	/**
+	* Executes the tasks, returning the result of one that has completed successfully, if any do. This result will be the returned value from the task's call() method
+	* If the service is not running, tasks are ignored.
+	* @tasks An array of task instances. A task CFC must expose a call() method that returns a result
+	* @timeout Maximum time to wait. 0 indicates to wait until completion
+	* @timeUnit TimeUnit of the timeout argument, as a string. Defaults to "seconds".
+	*/
+	public function invokeAny( array tasks, timeout=0, timeUnit="seconds" ){
+		var results = [];
+		var proxies = [];
+
+		if( isStarted() ){
+
+			for( var task in tasks ){
+				arrayAppend( proxies, objectFactory.createSubmittableProxy( task ) );
+			}
+			if( timeout LTE 0 ){
+				return getSubmissionTarget().invokeAny( proxies );
+			} else {
+				return getSubmissionTarget().invokeAny( proxies, timeout, objectFactory.getTimeUnitByName( timeUnit ) );
+			}
+
+		} else if( isPaused() ) {
+			writeLog("Service paused... ignoring submission");
+		} else if( isStopped() ){
+			throw("Service is stopped... not accepting new tasks");
+		}
+	}
+
+	/**
+	* Straight from the javadoc: Executes the given command at some time in the future. The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the Executor implementation.
+	* This is the equivalent of fire-and-forget usage of cfthread
+
+	* @runnableTask A task instance that exposes a void run() method
+	*/
+	public function execute( runnableTask ){
+		var proxy = objectFactory.createRunnableProxy( runnableTask );
+		getSubmissionTarget().execute( proxy );
+	}
+
+	/* Storage methods for shutdown management */
 
 	/**
 	* application["__cfoncurrent"]
@@ -126,7 +218,7 @@ component output="false" accessors="true"{
 	}
 
 	public function getProcessorCount(){
-		return createObject("java", "java.lang.Runtime").getRuntime().availableProcessors();
+		return objectFactory.getProcessorCount();
 	}
 
 	package function storeExecutor( string name, any executor ){
@@ -139,11 +231,12 @@ component output="false" accessors="true"{
 		return this;
 	}
 
-	package function shutdownAllExecutors(){
+	package function shutdownAllExecutors( timeout=100, timeUnit="milliseconds" ){
 		if( NOT structIsEmpty( getThisStorageScope() ) ){
 			var scope = getThisStorageScope();
 			for( var executor in scope ){
-				writeLog("Shutting down executor named #executor#");
+				writeLog("Waiting #timeout# #timeUnit# for tasks to complete and then shutting down executor named #executor#");
+				scope[executor].awaitTermination( timeout, objectFactory.getTimeUnitByName( timeUnit ) );
 				scope[executor].shutdownNow();
 			}
 			structClear( scope );

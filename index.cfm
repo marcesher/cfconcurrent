@@ -5,13 +5,13 @@
 	  <div class="hero-unit">
 	    <h1>Welcome to CFConcurrent</h1>
 	    <p>
-	    	CFConcurrent is a ColdFusion library for simplifying usage of the Java Concurrency Framework
+	    	CFConcurrent simplifies the use of the Java Concurrency Framework
 			(<a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/executors.html">java tutorial</a> | <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html">javadoc</a>)
 			in ColdFusion applications.
 	    </p>
 		<p>
-			CFThread is suitable for management-free, fire-and-forget concurrency.
-			Robust production applications, however, require higher-level abstractions and a greater degree of control.
+			Although CFThread is suitable for management-free, fire-and-forget concurrency, robust production applications
+			require higher-level abstractions and a greater degree of control.
 			The Java Concurrency Framework (JCF) provides such improvements.
 		</p>
 		<p>You create CFCs that act as "tasks" that return results. You submit those tasks to the JCF for execution. You can then retrieve the execution results immediately when they are available, or you can create a periodic "polling" task which processes the completed results.</p>
@@ -57,7 +57,7 @@
 
 	    <div class="span4">
 	      <h2>Extensible Base Components</h2>
-	      <p>Create your own custom services by extending the <code>AbstractConcurrencyService</code></p>
+	      <p>Create your own custom services by extending the <code>AbstractExecutorService</code></p>
 	    </div><!--/span-->
 	  </div><!--/row-->
 

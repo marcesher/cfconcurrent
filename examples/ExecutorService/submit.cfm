@@ -27,7 +27,7 @@
 			<p>NOTE: It is the expected, <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html#get(long, java.util.concurrent.TimeUnit)" target="_blank">documented behavior</a> that it'll throw an exception when the get() times out prior to completing</p>
 
 			<cfset task = new HelloTask( url.sleepTime )>
-			<cfset future = application.executorService.submitCallable( task )>
+			<cfset future = application.executorService.submit( task )>
 			<cfset result = future.get( url.waitTime, application.executorService.getTimeUnit().MILLISECONDS )>
 
 			<cfdump var="#result#" expand="false" label="Click to Expand">
@@ -41,7 +41,7 @@
 			<p>Example 2: Sometimes you want to wait for the task to complete regardless of how long it takes</p>
 
 			<cfset task = new HelloTask( url.sleepTime )>
-			<cfset future = application.executorService.submitCallable( task )>
+			<cfset future = application.executorService.submit( task )>
 			<cfset result = future.get()>
 			<cfdump var="#result#" expand="false" label="Click to Expand">
 
@@ -58,7 +58,7 @@
 			<p>Example 3: Sometimes your code will error. If you try/catch it, you can stick the error object into the result you return</p>
 
 			<cfset task = new HelloTask( 0, true, true )>
-			<cfset future = application.executorService.submitCallable( task )>
+			<cfset future = application.executorService.submit( task )>
 			<cfset result = future.get()>
 			<cfdump var="#result#" expand="false" label="Click to Expand">
 
@@ -71,7 +71,7 @@
 			<p>Example 4: If you don't catch your errors, the call to get() will thus throw the error
 
 			<cfset task = new HelloTask( 0, true )>
-			<cfset future = application.executorService.submitCallable( task )>
+			<cfset future = application.executorService.submit( task )>
 			<cftry>
 				<cfset result = future.get()>
 			<cfcatch>
