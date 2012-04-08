@@ -14,7 +14,15 @@
 			require higher-level abstractions and a greater degree of control.
 			The Java Concurrency Framework (JCF) provides such improvements.
 		</p>
-		<p>You create CFCs that act as "tasks" that return results. You submit those tasks to the JCF for execution. You can then retrieve the execution results immediately when they are available, or you can create a periodic "polling" task which processes the completed results.</p>
+		<p>
+			You create CFCs that act as "tasks" that return results.
+			You submit those tasks to the JCF for execution.
+			You can then retrieve the execution results immediately when they are available,
+			or you can create a periodic "polling" task which processes the completed results.
+
+			In addition, you can easily create cancelable, pausable scheduled tasks directly in your code,
+			freeing you from the 1-minute limitation of ColdFusion's scheduled task implementation.
+		</p>
 		<p>
 			CFConcurrent's goals are:
 
@@ -26,6 +34,11 @@
 				<li>Limit protectionist instincts</li>
 			</ul>
 		</p>
+
+		<p>
+			Run the examples in the left menu to get started. See the actual code in /cfconcurrent/examples/
+		</p>
+
 	   <p><a class="btn btn-primary btn-large" href="https://github.com/marcesher/cfconcurrent" target="_blank">Learn more &raquo;</a></p>
 	  </div>
 

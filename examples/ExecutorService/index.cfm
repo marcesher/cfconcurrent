@@ -7,7 +7,14 @@
 	  	<h1>Executor Service</h1>
 	   	<p>
 			An Executor Service (<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ExecutorService.html" target="_blank">javadoc</a>) asynchronously runs tasks that you submit to it.
-			Calls to submit() will return a Future (<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">javadoc</a>), and you use the future to track the status and retrieve the result of your task's execution.
+			Calls to submit() will return a Future (<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">javadoc</a>),
+			and you use the future to track the status and retrieve the result of your task's execution.
+		</p>
+
+		<p>
+			In addition, you can submit an array of tasks and use <code>service.invokeAll( tasks, timeout )</code> to wait until all tasks
+			are completed and then fetch the results. This is similar to the <code>thread.start(); thread.join(); </code> idiom.
+			It is superior in that you can control the timeout, and you can retrieve results of each task's execution.
 		</p>
 
 		<p>
@@ -18,6 +25,19 @@
 			If you need to submit your task and you do not wish to wait for its result -- but instead plan to have other code process results
 			at some other time -- then you want to use a <a href="../CompletionService">Completion Service</a>
 		</p>
+
+		<p>
+			<b>Typical Usage:</b>
+			<br>
+			See examples/ExecutorService for sample usage.
+			<code>Application.cfc</code> creates and destroys the executor service.
+			<code>HelloTask.cfc</code> is a sample Callable Task.
+			<code>submit.cfm</code> creates instances of <code>HelloTask</code> and submits them to the executor service.
+			<br/>
+			By default, the thread pool size -- the maximum number of tasks that will run simultaneously -- is equal to the
+			number of processors available + 1.
+		</p>
+
 	  </div><!-- /hero -->
 
 	  <div class="row-fluid">
