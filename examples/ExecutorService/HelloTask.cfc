@@ -8,7 +8,7 @@ component{
 	}
 
 	function call(){
-		writeLog("Starting call(). weeeeeee...");
+		writeLog("Starting call(). Wheeeeeee...");
 		result.callStartTick = getTickCount();
 		result.message = "Sleeping for #sleepTime# ms";
 		sleep( sleepTime );
