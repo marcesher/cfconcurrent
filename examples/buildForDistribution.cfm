@@ -6,7 +6,7 @@
 	  <div class="hero-unit">
 	  	<h1>Building for Distribution</h1>
 	   	<p>
-			CFConcurrent ships with full examples, nd Application.cfc, and tests. To build a zip that contains just the parts of CFConcurrent
+			CFConcurrent ships with full examples, an Application.cfc, and tests. To build a zip that contains just the parts of CFConcurrent
 			that you need to deploy onto your server, use CFConcurrent's <code>distMinimal</code> ANT target:
 		</p>
 
