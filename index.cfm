@@ -35,7 +35,7 @@
 				<li>Expose common patterns as generic services</li>
 				<li>Expose extensible base components</li>
 				<li>Do not over-reach</li>
-				<li>Limit protectionist instincts</li>
+				<li>Limit protectionist tendencies</li>
 			</ul>
 		</p>
 
