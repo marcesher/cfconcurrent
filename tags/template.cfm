@@ -65,6 +65,7 @@
 	              <li><a href="#root#examples/CompletionService">Completion Service</a></li>
 	              <li><a href="#root#examples/ScheduledExecutorService">Scheduled Executor</a></li>
 	              <li><a href="#root#ormInExecutor">Using ORM in an Executor Service</a></li>
+	              <li><a href="#root#examples/stopAll.cfm">Stop any running Examples services</a></li>
 	            </ul>
 	          </div><!--/.well -->
 	        </div><!--/span3-->

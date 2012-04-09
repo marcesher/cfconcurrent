@@ -10,7 +10,7 @@
 			in ColdFusion applications.
 	    </p>
 		<p>
-			Although CFThread is suitable for management-free, fire-and-forget concurrency, robust production applications
+			Although CFThread is suitable for management-free fire-and-forget concurrency, robust production applications
 			require higher-level abstractions and a greater degree of control.
 			The Java Concurrency Framework (JCF) provides such improvements.
 		</p>
@@ -20,7 +20,7 @@
 			You can then retrieve the execution results immediately when they are available,
 			or you can create a periodic "polling" task which processes the completed results.
 
-			In addition, you can easily create cancelable, pausable scheduled tasks directly in your code,
+			In addition, you can easily create cancelable, pausable scheduled tasks directly in your code (think: heartbeats, daemons),
 			freeing you from the 1-minute limitation of ColdFusion's scheduled task implementation.
 		</p>
 		<p>
@@ -36,43 +36,12 @@
 		</p>
 
 		<p>
-			Run the examples in the left menu to get started. See the actual code in /cfconcurrent/examples/
+			Run the examples in the left menu to get started. See the actual code in /cfconcurrent/examples/. Read docs on <a href="https://github.com/marcesher/cfconcurrent/wiki" target="_blank">the wiki</a>.
 		</p>
 
 	   <p><a class="btn btn-primary btn-large" href="https://github.com/marcesher/cfconcurrent" target="_blank">Learn more &raquo;</a></p>
 	  </div>
 
-	  <div class="row-fluid">
-	    <div class="span4">
-	      <h2>Simplify Usage</h2>
-
-	      <p>Turn this:</p>
-
-		  <code>blah</code>
-
-		  <p>into this:</p>
-
-		  <code>yay</code>
-
-	    </div><!--/span-->
-
-	    <div class="span4">
-	      <h2>Expose Generic Services</h2>
-	       <p>Turn this:</p>
-
-		  <code>blah</code>
-
-		  <p>into this:</p>
-
-		  <code>yay</code>
-
-	    </div><!--/span-->
-
-	    <div class="span4">
-	      <h2>Extensible Base Components</h2>
-	      <p>Create your own custom services by extending the <code>AbstractExecutorService</code></p>
-	    </div><!--/span-->
-	  </div><!--/row-->
 
 	</div><!--/span-->
 </tags:template>

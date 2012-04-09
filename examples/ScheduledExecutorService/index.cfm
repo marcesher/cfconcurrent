@@ -50,7 +50,8 @@
 	    </div><!--/span-->
 
 	    <div class="span4">
-	      <h2>Re-init the app</h2>
+	      <h2>Stop or Re-init the app</h2>
+	      <p><a href="index.cfm?stop">Stop the app</a></p>
 	      <p><a href="index.cfm?reinit">Reinit the app</a></p>
 		  <p><b>Note: </b> Application.cfc will shut down the executor onApplicationStop()... Read that code. You <b>must</b> do this in your own code!</p>
 	    </div><!--/span-->

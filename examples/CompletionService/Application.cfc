@@ -18,9 +18,13 @@ component extends="cfconcurrent.Application"{
 	}
 
 	function onRequestStart(){
-		if( structKeyExists(url, "reinit") ){
+		if( structKeyExists(url, "stop") OR structKeyExists(url, "reinit") ){
 			applicationStop();
 			onApplicationStop();
+		}
+		
+		if( structKeyExists(url, "reinit") ){
+			location( "index.cfm", false );
 		}
 	}
 
