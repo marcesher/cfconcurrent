@@ -24,6 +24,10 @@
 			freeing you from the 1-minute limitation of ColdFusion's scheduled task implementation.
 		</p>
 		<p>
+			Finally, because the JCF manages its own pool of threads, you are no longer beholden to CFThread limits;
+			in fact, you can customize the number of max concurrent processes at the application level, not the server level.
+		</p>
+		<p>
 			CFConcurrent's goals are:
 
 			<ul>

@@ -66,6 +66,8 @@
 	              <li><a href="#root#examples/ScheduledExecutorService">Scheduled Executor</a></li>
 	              <li><a href="#root#ormInExecutor">Using ORM in an Executor Service</a></li>
 	              <li><a href="#root#examples/stopAll.cfm">Stop any running Examples services</a></li>
+	              <li class="nav-header">Deploying CFConcurrent</li>
+	              <li><a href="#root#examples/buildForDistribution.cfm">Build a minimized zip for distribution</a></li>
 	            </ul>
 	          </div><!--/.well -->
 	        </div><!--/span3-->
