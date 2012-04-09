@@ -5,13 +5,13 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	property name="workExecutor";
 
 	/**
-	* @appName The unique application name for this Completion service
+	* @serviceName The unique application name for this Completion service
 	  @maxConcurrent The maximum number of tasks which will be run at one time. A value of 0 will cause the maxConcurrent to be calculated as Number of CPUs + 1
 	  @maxWorkQueueSize
 	*/
-	public function init( appName, numeric maxConcurrent=0, numeric maxWorkQueueSize=10000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( serviceName, numeric maxConcurrent=0, numeric maxWorkQueueSize=10000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
-		super.init( appName, objectFactory );
+		super.init( serviceName, objectFactory );
 		structAppend( variables, arguments );
 		if( maxConcurrent LTE 0 ){
 			variables.maxConcurrent = getProcessorCount() + 1;

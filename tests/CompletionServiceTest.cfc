@@ -1,7 +1,7 @@
 component extends="mxunit.framework.TestCase"{
 
 	function setUp(){
-		service = new cfconcurrent.CompletionService(appName="unittest", completionQueueProcessFrequency=1);
+		service = new cfconcurrent.CompletionService(serviceName="unittest", completionQueueProcessFrequency=1);
 		service.setLoggingEnabled( true );
 		completionTask = new fixture.VariablesCollectingTaskFixture();
 		service.setCompletionQueueProcessTask( completionTask );

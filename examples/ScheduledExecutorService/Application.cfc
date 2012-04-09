@@ -5,7 +5,7 @@ component extends="cfconcurrent.Application"{
 
 	function onApplicationStart(){
 		application.executorService = createObject("component", "cfconcurrent.ScheduledExecutorService")
-			.init( appName = "scheduledExecutorServiceExample", maxConcurrent = 0 );
+			.init( serviceName = "scheduledExecutorServiceExample", maxConcurrent = 0 );
 		application.executorService.setLoggingEnabled( true );
 		application.executorService.start();
 

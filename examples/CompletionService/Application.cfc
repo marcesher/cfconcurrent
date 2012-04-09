@@ -5,9 +5,9 @@ component extends="cfconcurrent.Application"{
 
 	function onApplicationStart(){
 		writeLog("Starting #application.applicationName# Completion Service");
-		//setting maxConcurrent to 0 will cause cfconcurrent to base the maxConcurrent number on the available processors
+		//a maxConcurrent of 0 will cause the service to default to the number of Available Processors + 1
 		application.completionService = createObject("component", "cfconcurrent.CompletionService")
-			.init( appName = "completionServiceExample",
+			.init( serviceName = "completionServiceExample",
 					maxConcurrent = 0,
 					completionQueueProcessFrequency = 2 );
 		application.completionService.setLoggingEnabled( true );
@@ -22,7 +22,7 @@ component extends="cfconcurrent.Application"{
 			applicationStop();
 			onApplicationStop();
 		}
-		
+
 		if( structKeyExists(url, "reinit") ){
 			location( "index.cfm", false );
 		}

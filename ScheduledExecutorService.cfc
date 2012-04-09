@@ -6,9 +6,9 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	property name="scheduledExecutor";
 	property name="storedTasks" type="struct";
 
-	public function init( String appName, maxConcurrent=0, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( String serviceName, maxConcurrent=0, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
-		super.init( appName, objectFactory );
+		super.init( serviceName, objectFactory );
 		structAppend( variables, arguments );
 		if( maxConcurrent LTE 0 ){
 			variables.maxConcurrent = getProcessorCount() + 1;
@@ -52,7 +52,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 
 	package function storeTask( id, task, future ){
 
-		lock name="storeScheduledTask_#appName#_#id#" timeout="2"{
+		lock name="storeScheduledTask_#serviceName#_#id#" timeout="2"{
 			cancelTask( id );
 			storedTasks[ id ] = { task = task, future = future };
 		}

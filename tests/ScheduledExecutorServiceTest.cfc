@@ -1,7 +1,7 @@
 component extends="mxunit.framework.TestCase"{
 
 	function setUp(){
-		service = new cfconcurrent.ScheduledExecutorService( appName="unittest" );
+		service = new cfconcurrent.ScheduledExecutorService( serviceName="unittest" );
 		service.setLoggingEnabled( true );
 	}
 

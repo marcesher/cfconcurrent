@@ -4,8 +4,9 @@ component extends="cfconcurrent.Application"{
 
 
 	function onApplicationStart(){
+		//a maxConcurrent of 0 will cause the service to default to the number of Available Processors + 1
 		application.executorService = createObject("component", "cfconcurrent.ExecutorService")
-			.init( appName = "executorServiceExample", maxConcurrent = 0, maxWorkQueueSize = 100000);
+			.init( serviceName = "executorServiceExample", maxConcurrent = 0, maxWorkQueueSize = 100000);
 		application.executorService.setLoggingEnabled( true );
 		application.executorService.start();
 	}
@@ -15,7 +16,7 @@ component extends="cfconcurrent.Application"{
 			applicationStop();
 			onApplicationStop();
 		}
-		
+
 		if( structKeyExists(url, "reinit") ){
 			location( "index.cfm", false );
 		}

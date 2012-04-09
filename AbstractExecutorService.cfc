@@ -1,6 +1,6 @@
 component output="false" accessors="true"{
 
-	property name="appName" type="string";
+	property name="serviceName" type="string";
 	property name="status" type="string";
 	property name="objectFactory";
 	property name="maxConcurrent" type="numeric";
@@ -34,7 +34,7 @@ component output="false" accessors="true"{
 		It is the responsibility of the user of this library to call stop() on services he/she starts
 	*/
 
-	public function init( String appName, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( String serviceName, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
 		structAppend( variables, arguments );
 		variables.timeUnit = objectFactory.createTimeUnit();
@@ -195,19 +195,19 @@ component output="false" accessors="true"{
 	}
 
 	/**
-	* application["__cfconcurrent"][application.applicationname][ getAppName() ]
+	* application["__cfconcurrent"][application.applicationname][ getserviceName() ]
 
-		AppName does NOT have to be application.applicationname... it should be a name that *uniquely* identifies
+		serviceName does NOT have to be application.applicationname... it should be a name that *uniquely* identifies
 		This concurrency service in the application.
 
 		If the application has multiple concurrency services, they must be uniquely named
 	*/
 	public function getThisStorageScope(){
 		var scope = getApplicationStorageScope();
-		if( NOT structKeyExists( scope, appName) ){
-			scope[appName] = {};
+		if( NOT structKeyExists( scope, serviceName) ){
+			scope[serviceName] = {};
 		}
-		return scope[appName];
+		return scope[serviceName];
 	}
 
 	public function logMessage( String text, String file="#logName#" ){

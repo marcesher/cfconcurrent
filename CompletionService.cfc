@@ -16,15 +16,15 @@ component extends="ExecutorService" accessors="true" output="false"{
 	variables.completionQueueProcessTaskID = "completionQueueProcessor";
 
 	/**
-	* @appName The unique application name for this Completion service
+	* @serviceName The unique application name for this Completion service
 	  @maxConcurrent The maximum number of tasks which will be run at one time. A value of 0 will cause the maxConcurrent to be calculated as Number of CPUs + 1
 	  @completionQueueProcessFrequency
 	  @maxWorkQueueSize
 	  @maxCompletionQueueSize
 	*/
-	public function init( appName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 		structAppend( variables, arguments );
-		return super.init( appName, maxConcurrent, maxWorkQueueSize, objectFactory );
+		return super.init( serviceName, maxConcurrent, maxWorkQueueSize, objectFactory );
 	}
 
 	public function start(){
@@ -33,7 +33,7 @@ component extends="ExecutorService" accessors="true" output="false"{
 		variables.completionService = objectFactory.createCompletionService( workExecutor, completionQueue );
 		setSubmissionTarget( completionService );
 
-		variables.completionQueueProcessService = new ScheduledExecutorService( appName, 1, objectFactory ).start();
+		variables.completionQueueProcessService = new ScheduledExecutorService( serviceName, 1, objectFactory ).start();
 
 		//in the event that a completion task has been set prior to start(), we'll schedule it now
 		scheduleCompletionTask();
