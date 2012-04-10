@@ -3,7 +3,9 @@ Welcome to CFConcurent
 
 CFConcurrent simplifies the use of the Java Concurrency Framework
 ([java tutorial](http://docs.oracle.com/javase/tutorial/essential/concurrency/executors.html) | [javadoc](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html))
-in ColdFusion applications. It runs on CF9+.
+in ColdFusion applications. 
+
+CFConcurrent runs on **CF9+**.
 
 
 Although CFThread is suitable for management-free fire-and-forget concurrency, robust production applications
@@ -26,6 +28,8 @@ CFConcurrent's goals are:
 * Do not over-reach
 * Limit protectionist tendencies
 
+CFConcurrent is not a "wrapper" library, nor does it hide the Java Concurrency Framework from you.
+
 Usage
 --------
 
@@ -35,6 +39,11 @@ Gratitude
 ---------
 
 CFConcurrent owes a great deal to [Mark Mandel](http://www.compoundtheory.com/) and JavaLoader. While CFConcurrent uses native Java proxy object creation on CF10, it requires JavaLoader on CF9. This project would not be possible today without JavaLoader.
+
+Roadmap
+--------
+
+ForkJoinPool -- I'll be adding a ForkJoinPool service along with examples. This will require CF running on Java 7
 
 
 Support or Contact
