@@ -12,7 +12,7 @@ component{
 			//writeLog("Inside call!")
 
 			var fc = createObject("java", "coldfusion.filter.FusionContext").init();
-			fc.getCurrent().setApplicationName("cfconcurrent_ornInExecutor");
+			fc.getCurrent().setApplicationName("cfconcurrent_ormInExecutor");
 			//var newArtist = new cfconcurrent.examples.ormInExecutor.model.Artist();
 
 			results.fetched = entityLoadByPk("Artist", results.id );

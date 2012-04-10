@@ -3,7 +3,7 @@ Welcome to CFConcurent
 
 CFConcurrent simplifies the use of the Java Concurrency Framework
 ([java tutorial](http://docs.oracle.com/javase/tutorial/essential/concurrency/executors.html) | [javadoc](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html))
-in ColdFusion applications.
+in ColdFusion applications. It runs on CF9+.
 
 
 Although CFThread is suitable for management-free fire-and-forget concurrency, robust production applications
