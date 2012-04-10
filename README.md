@@ -8,7 +8,7 @@ in ColdFusion applications. It runs on CF9+.
 
 Although CFThread is suitable for management-free fire-and-forget concurrency, robust production applications
 require higher-level abstractions and a greater degree of control.
-The Java Concurrency Framework (JCF) provides such improvements, and you can take advantage of it using *100% CFML*.
+The Java Concurrency Framework (JCF) provides such improvements, and you can take advantage of it using **100% CFML**.
 
 You create CFCs that act as "tasks" that return results.
 You submit those tasks to the JCF for execution.
