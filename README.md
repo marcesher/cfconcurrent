@@ -31,6 +31,11 @@ Usage
 
 You want to see code. CFConcurrent ships with running examples and a suite of MXUnit tests. Docs are in the wiki: https://github.com/marcesher/cfconcurrent/wiki. 
 
+Gratitude
+---------
+
+CFConcurrent owes a great deal to [Mark Mandel](http://www.compoundtheory.com/) and JavaLoader. While CFConcurrent uses native Java proxy object creation on CF10, it requires JavaLoader on CF9. This project would not be possible today without JavaLoader.
+
 
 Support or Contact
 ------------------
