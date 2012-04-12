@@ -35,6 +35,15 @@ Usage
 
 You want to see code. CFConcurrent ships with running examples and a suite of MXUnit tests. Docs are in the wiki: https://github.com/marcesher/cfconcurrent/wiki. 
 
+Why?
+----
+
+I started writing concurrent programs in Java in 2004. This library represents what I wish I had in ColdFusion at that time, and frequently since then.
+
+For CF developers, Concurrency trends thusly: 1) Lob it into CFThread and hope it works. 2) OMG it's hard to do correctly. Let's eat cake.
+
+I want this library to expose safe, correct concurrency abstractions that enable high-quality concurrent programming in ColdFusion applications.
+
 Gratitude
 ---------
 
