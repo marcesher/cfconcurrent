@@ -30,11 +30,6 @@ CFConcurrent's goals are:
 
 CFConcurrent is not a "wrapper" library, nor does it hide the Java Concurrency Framework from you.
 
-Usage
---------
-
-You want to see code. CFConcurrent ships with running examples and a suite of MXUnit tests. Docs are in the wiki: https://github.com/marcesher/cfconcurrent/wiki. 
-
 Why?
 ----
 
@@ -43,6 +38,12 @@ I started writing concurrent programs in Java in 2004. This library represents w
 For CF developers, Concurrency trends thusly: 1) Lob it into CFThread and hope it works. 2) OMG it's hard to do correctly. Let's eat cake. 3) Spend an inordinate amount of time with locks, app and server-scoped based data sharing schemes, and brittle thread-cancelling mechanisms.
 
 I want this library to expose safe, correct concurrency abstractions that enable high-quality concurrent programming in ColdFusion applications.
+
+Usage
+--------
+
+You want to see code. CFConcurrent ships with running examples and a suite of MXUnit tests. Docs are in the wiki: https://github.com/marcesher/cfconcurrent/wiki. 
+
 
 Gratitude
 ---------
