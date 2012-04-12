@@ -40,7 +40,7 @@ Why?
 
 I started writing concurrent programs in Java in 2004. This library represents what I wish I had in ColdFusion at that time, and frequently since then.
 
-For CF developers, Concurrency trends thusly: 1) Lob it into CFThread and hope it works. 2) OMG it's hard to do correctly. Let's eat cake.
+For CF developers, Concurrency trends thusly: 1) Lob it into CFThread and hope it works. 2) OMG it's hard to do correctly. Let's eat cake. 3) Spend an inordinate amount of time with locks, app and server-scoped based data sharing schemes, and brittle thread-cancelling mechanisms.
 
 I want this library to expose safe, correct concurrency abstractions that enable high-quality concurrent programming in ColdFusion applications.
 
