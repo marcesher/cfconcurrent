@@ -33,7 +33,7 @@ CFConcurrent is not a "wrapper" library, nor does it hide the Java Concurrency F
 Why?
 ----
 
-I started writing concurrent programs in Java in 2004. This library represents what I wish I had in ColdFusion at that time, and frequently since then.
+I started writing concurrent programs in Java in 2004. This library represents what I wish I had in ColdFusion since learning to write concurrent programs.
 
 For CF developers, Concurrency trends thusly: 1) Lob it into CFThread and hope it works. 2) OMG it's hard to do correctly. Let's eat cake. 3) Spend an inordinate amount of time with locks, app and server-scoped based data sharing schemes, and brittle thread-cancelling mechanisms.
 
