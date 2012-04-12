@@ -43,7 +43,7 @@ CFConcurrent owes a great deal to [Mark Mandel](http://www.compoundtheory.com/) 
 Roadmap
 --------
 
-ForkJoinPool -- I'll be adding a ForkJoinPool service along with examples. This will require CF running on Java 7
+ForkJoinPool -- I'll be adding a ForkJoinPool service along with examples. 
 
 
 Support or Contact
