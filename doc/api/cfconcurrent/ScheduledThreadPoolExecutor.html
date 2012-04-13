@@ -18,7 +18,7 @@ Callable
 <SCRIPT type="text/javascript">
 function windowTitle()
 {
-    parent.document.title="ExecutorService";
+    parent.document.title="ScheduledThreadPoolExecutor";
 }
 </SCRIPT>
 <NOSCRIPT>
@@ -63,7 +63,7 @@ CFConcurrent</EM>
 
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 	
-	  <A HREF="../index.html?cfconcurrent/ExecutorService.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+	  <A HREF="../index.html?cfconcurrent/ScheduledThreadPoolExecutor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 	
 </FONT></TD>
 
@@ -78,24 +78,16 @@ CFConcurrent</EM>
 <FONT SIZE="-1">
 cfconcurrent</FONT>
 <BR>
-Class ExecutorService</H2>
+Class ScheduledThreadPoolExecutor</H2>
 
 
 
 <PRE>WEB-INF.cftags.component
         <IMG SRC="../resources/inherit.gif" ALT="extended by "><a href="..//cfconcurrent/AbstractExecutorService.html" title="class in cfconcurrent">cfconcurrent.AbstractExecutorService</a>
-            <IMG SRC="../resources/inherit.gif" ALT="extended by ">cfconcurrent.ExecutorService
+            <IMG SRC="../resources/inherit.gif" ALT="extended by "><a href="..//cfconcurrent/ExecutorService.html" title="class in cfconcurrent">cfconcurrent.ExecutorService</a>
+                <IMG SRC="../resources/inherit.gif" ALT="extended by ">cfconcurrent.ScheduledThreadPoolExecutor
 </PRE>
 
-
-<DL>
-<DT><B>Direct Known Subclasses:</B>
-<DD>
-	
-		<A HREF="..//cfconcurrent/ExecutorService.html" title="class in cfconcurrent">ExecutorService</A>
-	
-</DD>
-</DL>
 
 
 <HR>
@@ -104,11 +96,15 @@ Class ExecutorService</H2>
 
 
 
-<PRE>public class <B>ExecutorService</B>
-<DT>extends <a href="..//cfconcurrent/AbstractExecutorService.html" title="class in cfconcurrent">AbstractExecutorService</a></DT></PRE>
+<PRE>public class <B>ScheduledThreadPoolExecutor</B>
+<DT>extends <a href="..//cfconcurrent/ExecutorService.html" title="class in cfconcurrent">ExecutorService</a></DT></PRE>
 </DT>
 </DL>
 
+
+<P>
+	http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html
+<P>
 
 
 <HR>
@@ -127,7 +123,7 @@ Class ExecutorService</H2>
 	<TR BGCOLOR="white" CLASS="TableRowColor">
 	
 	<TD>
-		<CODE><B><A HREF="ExecutorService.html#init()">init</A></B>([any serviceName], [numeric maxConcurrent='0'], [numeric maxWorkQueueSize='10000'], [any objectFactory='[runtime expression]'])</CODE>
+		<CODE><B><A HREF="ScheduledThreadPoolExecutor.html#init()">init</A></B>([String serviceName], [any maxConcurrent='0'], [any objectFactory='[runtime expression]'])</CODE>
 	<BR>
 	
 	</TD>
@@ -148,7 +144,7 @@ Class ExecutorService</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#GETWORKEXECUTOR()">GETWORKEXECUTOR</A></B>()</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#GETSCHEDULEDEXECUTOR()">GETSCHEDULEDEXECUTOR</A></B>()</CODE>
 <BR>
 
 </TD>
@@ -156,17 +152,8 @@ Class ExecutorService</H2>
 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#GETWORKQUEUE()">GETWORKQUEUE</A></B>()</CODE>
-<BR>
-
-</TD>
-</TR>
-
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#SETWORKEXECUTOR()">SETWORKEXECUTOR</A></B>(any workExecutor)</CODE>
+<CODE>&nbsp;struct</CODE></FONT></TD>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#GETSTOREDTASKS()">GETSTOREDTASKS</A></B>()</CODE>
 <BR>
 
 </TD>
@@ -175,7 +162,16 @@ Class ExecutorService</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#SETWORKQUEUE()">SETWORKQUEUE</A></B>(any workQueue)</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#SETSCHEDULEDEXECUTOR()">SETSCHEDULEDEXECUTOR</A></B>(any scheduledExecutor)</CODE>
+<BR>
+
+</TD>
+</TR>
+
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#SETSTOREDTASKS()">SETSTOREDTASKS</A></B>(struct storedTasks)</CODE>
 <BR>
 
 </TD>
@@ -184,40 +180,45 @@ Class ExecutorService</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#execute()">execute</A></B>([any runnableTask])</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#cancelTask()">cancelTask</A></B>([any id])</CODE>
 <BR>
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Straight from the javadoc: Executes the given command at some time in the future 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a struct with keys 'task' and 'future' 
 </TD>
 </TR>
 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#invokeAll()">invokeAll</A></B>([array tasks], [any timeout='0'], [any timeUnit='seconds'])</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#scheduleAtFixedRate()">scheduleAtFixedRate</A></B>([any id], [any task], [any initialDelay], [any period], [any timeUnit='seconds'])</CODE>
 <BR>
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes the tasks, returning an array of Futures when all complete 
 </TD>
 </TR>
 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#invokeAny()">invokeAny</A></B>([array tasks], [any timeout='0'], [any timeUnit='seconds'])</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#scheduleWithFixedDelay()">scheduleWithFixedDelay</A></B>([any id], [any task], [any initialDelay], [any delay], [any timeUnit='seconds'])</CODE>
 <BR>
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes the tasks, returning the result of one that has completed successfully, if any do 
 </TD>
 </TR>
 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;any</CODE></FONT></TD>
-<TD><CODE><B><A HREF="ExecutorService.html#start()">start</A></B>()</CODE>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#start()">start</A></B>()</CODE>
+<BR>
+
+</TD>
+</TR>
+
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>package&nbsp;any</CODE></FONT></TD>
+<TD><CODE><B><A HREF="ScheduledThreadPoolExecutor.html#storeTask()">storeTask</A></B>([any id], [any task], [any future])</CODE>
 <BR>
 
 </TD>
@@ -226,6 +227,22 @@ Class ExecutorService</H2>
 </TR>
 </TABLE>
 
+
+
+	&nbsp;
+	<a name="methods_inherited_from_class_cfconcurrent.ExecutorService"><!-- --></a>
+	<table summary="" border="1" cellpadding="3" cellspacing="0" width="100%">
+	<tbody><tr class="TableSubHeadingColor" bgcolor="#eeeeff">
+	<th align="left"><b>Methods inherited from class <a href="..//cfconcurrent/ExecutorService.html" title="class in cfconcurrent">cfconcurrent.ExecutorService</a></b></th>
+	</tr>
+	<tr class="TableRowColor" bgcolor="white">
+	<td>
+		
+
+		<code><a href="..//cfconcurrent/ExecutorService.html#cfconcurrent.ScheduledThreadPoolExecutor()">cfconcurrent.ScheduledThreadPoolExecutor</a></code>
+	</td>
+	</tr>
+	</tbody></table>
 
 
 	&nbsp;
@@ -238,7 +255,7 @@ Class ExecutorService</H2>
 	<td>
 		
 
-		<code><a href="..//cfconcurrent/AbstractExecutorService.html#cfconcurrent.ExecutorService()">cfconcurrent.ExecutorService</a></code>
+		<code></code>
 	</td>
 	</tr>
 	</tbody></table>
@@ -278,7 +295,7 @@ Class ExecutorService</H2>
 <a name="init()"><!-- --></a><h3>
 
 init</h3>
-<CODE>public <B>init</B>([any serviceName], [numeric maxConcurrent='0'], [numeric maxWorkQueueSize='10000'], [any objectFactory='[runtime expression]'])</CODE>
+<CODE>public <B>init</B>([String serviceName], [any maxConcurrent='0'], [any objectFactory='[runtime expression]'])</CODE>
 <dl>
 <dd>
 
@@ -288,11 +305,9 @@ init</h3>
 <dl>
 <dt><b>Parameters:</b></dt>
 
-<dd><code>serviceName</code> - The unique application name for this Completion service</dd>
+<dd><code>serviceName</code></dd>
 
-<dd><code>maxConcurrent</code> - The maximum number of tasks which will be run at one time. A value of 0 will cause the maxConcurrent to be calculated as Number of CPUs + 1</dd>
-
-<dd><code>maxWorkQueueSize</code> - yes</dd>
+<dd><code>maxConcurrent</code></dd>
 
 <dd><code>objectFactory</code></dd>
 
@@ -313,9 +328,9 @@ init</h3>
 </tr>
 </tbody></table>
 
-	<a name="GETWORKEXECUTOR()"><!-- --></a><h3>
-	GETWORKEXECUTOR</h3>
-	<code>public any <B>GETWORKEXECUTOR</B>()</code>
+	<a name="GETSCHEDULEDEXECUTOR()"><!-- --></a><h3>
+	GETSCHEDULEDEXECUTOR</h3>
+	<code>public any <B>GETSCHEDULEDEXECUTOR</B>()</code>
 
 	<dl>
 	<dd>
@@ -329,9 +344,9 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="GETWORKQUEUE()"><!-- --></a><h3>
-	GETWORKQUEUE</h3>
-	<code>public any <B>GETWORKQUEUE</B>()</code>
+	<a name="GETSTOREDTASKS()"><!-- --></a><h3>
+	GETSTOREDTASKS</h3>
+	<code>public struct <B>GETSTOREDTASKS</B>()</code>
 
 	<dl>
 	<dd>
@@ -345,9 +360,9 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="SETWORKEXECUTOR()"><!-- --></a><h3>
-	SETWORKEXECUTOR</h3>
-	<code>public void <B>SETWORKEXECUTOR</B>(any workExecutor)</code>
+	<a name="SETSCHEDULEDEXECUTOR()"><!-- --></a><h3>
+	SETSCHEDULEDEXECUTOR</h3>
+	<code>public void <B>SETSCHEDULEDEXECUTOR</B>(any scheduledExecutor)</code>
 
 	<dl>
 	<dd>
@@ -359,7 +374,7 @@ init</h3>
 	<dl>
 	<dt><b>Parameters:</b></dt>
 	
-	<dd><code>workExecutor</code></dd>
+	<dd><code>scheduledExecutor</code></dd>
 	
 	</dl>
 	
@@ -368,9 +383,9 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="SETWORKQUEUE()"><!-- --></a><h3>
-	SETWORKQUEUE</h3>
-	<code>public void <B>SETWORKQUEUE</B>(any workQueue)</code>
+	<a name="SETSTOREDTASKS()"><!-- --></a><h3>
+	SETSTOREDTASKS</h3>
+	<code>public void <B>SETSTOREDTASKS</B>(struct storedTasks)</code>
 
 	<dl>
 	<dd>
@@ -382,7 +397,7 @@ init</h3>
 	<dl>
 	<dt><b>Parameters:</b></dt>
 	
-	<dd><code>workQueue</code></dd>
+	<dd><code>storedTasks</code></dd>
 	
 	</dl>
 	
@@ -391,13 +406,13 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="execute()"><!-- --></a><h3>
-	execute</h3>
-	<code>public any <B>execute</B>([any runnableTask])</code>
+	<a name="cancelTask()"><!-- --></a><h3>
+	cancelTask</h3>
+	<code>public any <B>cancelTask</B>([any id])</code>
 
 	<dl>
 	<dd>
-	Straight from the javadoc: Executes the given command at some time in the future. The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the Executor implementation. This is the equivalent of fire-and-forget usage of cfthread 
+	Returns a struct with keys 'task' and 'future'. The 'task' is the original object submitted to the executor. The 'future' is the <ScheduledFuture> object returned when submitting the task 
 	<p>
 	</p></dd>
 
@@ -405,7 +420,7 @@ init</h3>
 	<dl>
 	<dt><b>Parameters:</b></dt>
 	
-	<dd><code>runnableTask</code> - A task instance that exposes a void run() method</dd>
+	<dd><code>id</code></dd>
 	
 	</dl>
 	
@@ -414,13 +429,13 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="invokeAll()"><!-- --></a><h3>
-	invokeAll</h3>
-	<code>public any <B>invokeAll</B>([array tasks], [any timeout='0'], [any timeUnit='seconds'])</code>
+	<a name="scheduleAtFixedRate()"><!-- --></a><h3>
+	scheduleAtFixedRate</h3>
+	<code>public any <B>scheduleAtFixedRate</B>([any id], [any task], [any initialDelay], [any period], [any timeUnit='seconds'])</code>
 
 	<dl>
 	<dd>
-	Executes the tasks, returning an array of Futures when all complete. If the service is not running, tasks are ignored. 
+	
 	<p>
 	</p></dd>
 
@@ -428,11 +443,15 @@ init</h3>
 	<dl>
 	<dt><b>Parameters:</b></dt>
 	
-	<dd><code>tasks</code> - An array of task instances. A task CFC must expose a call() method that returns a result</dd>
+	<dd><code>id</code></dd>
 	
-	<dd><code>timeout</code> - Maximum time to wait. 0 indicates to wait until completion</dd>
+	<dd><code>task</code></dd>
 	
-	<dd><code>timeUnit</code> - TimeUnit of the timeout argument, as a string. Defaults to "seconds".</dd>
+	<dd><code>initialDelay</code></dd>
+	
+	<dd><code>period</code></dd>
+	
+	<dd><code>timeUnit</code></dd>
 	
 	</dl>
 	
@@ -441,13 +460,13 @@ init</h3>
 	</dl>
 	<hr>
 
-	<a name="invokeAny()"><!-- --></a><h3>
-	invokeAny</h3>
-	<code>public any <B>invokeAny</B>([array tasks], [any timeout='0'], [any timeUnit='seconds'])</code>
+	<a name="scheduleWithFixedDelay()"><!-- --></a><h3>
+	scheduleWithFixedDelay</h3>
+	<code>public any <B>scheduleWithFixedDelay</B>([any id], [any task], [any initialDelay], [any delay], [any timeUnit='seconds'])</code>
 
 	<dl>
 	<dd>
-	Executes the tasks, returning the result of one that has completed successfully, if any do. This result will be the returned value from the task's call() method If the service is not running, tasks are ignored. 
+	
 	<p>
 	</p></dd>
 
@@ -455,11 +474,15 @@ init</h3>
 	<dl>
 	<dt><b>Parameters:</b></dt>
 	
-	<dd><code>tasks</code> - An array of task instances. A task CFC must expose a call() method that returns a result</dd>
+	<dd><code>id</code></dd>
 	
-	<dd><code>timeout</code> - Maximum time to wait. 0 indicates to wait until completion</dd>
+	<dd><code>task</code></dd>
 	
-	<dd><code>timeUnit</code> - TimeUnit of the timeout argument, as a string. Defaults to "seconds".</dd>
+	<dd><code>initialDelay</code></dd>
+	
+	<dd><code>delay</code></dd>
+	
+	<dd><code>timeUnit</code></dd>
 	
 	</dl>
 	
@@ -483,12 +506,39 @@ init</h3>
 		<dt><b>Overrides:</b></dt>
 		<dd>
 		<code>
-		<a href="..//cfconcurrent/AbstractExecutorService.html#start()">start</a></code>
+		<a href="..//cfconcurrent/ExecutorService.html#start()">start</a></code>
 		in class
 		<code>
-			<a href="..//cfconcurrent/AbstractExecutorService.html" title="class in cfconcurrent">AbstractExecutorService</a>
+			<a href="..//cfconcurrent/ExecutorService.html" title="class in cfconcurrent">ExecutorService</a>
 		</code>
 		</dd>
+	</dl>
+	
+
+	</dd>
+	</dl>
+	<hr>
+
+	<a name="storeTask()"><!-- --></a><h3>
+	storeTask</h3>
+	<code>package any <B>storeTask</B>([any id], [any task], [any future])</code>
+
+	<dl>
+	<dd>
+	
+	<p>
+	</p></dd>
+
+	
+	<dl>
+	<dt><b>Parameters:</b></dt>
+	
+	<dd><code>id</code></dd>
+	
+	<dd><code>task</code></dd>
+	
+	<dd><code>future</code></dd>
+	
 	</dl>
 	
 
@@ -529,7 +579,7 @@ CFConcurrent</EM>
 
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 	
-	  <A HREF="../index.html?cfconcurrent/ExecutorService.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+	  <A HREF="../index.html?cfconcurrent/ScheduledThreadPoolExecutor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 	
 </FONT></TD>
 
