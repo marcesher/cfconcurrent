@@ -13,11 +13,11 @@
 	</cfif>
 
 	<cfset task = new HelloTask( idStub & "_#i#", val(url.sleepTime) )>
-	<cfset future = application.completionService.submit( task )>
+	<cfset future = application.executorCompletionService.submit( task )>
 </cfloop>
 
-<cfset workQueueSize = application.completionService.getWorkQueue().size()>
-<cfset completionQueueSize = application.completionService.getCompletionQueue().size()>
+<cfset workQueueSize = application.executorCompletionService.getWorkQueue().size()>
+<cfset completionQueueSize = application.executorCompletionService.getCompletionQueue().size()>
 
 
 <tags:template root="../../">

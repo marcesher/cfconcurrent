@@ -3,9 +3,9 @@ Collects all completed futures and pushes them to a publish() method. Implements
  */
 component output="false" accessors="true"{
 
-	property name="completionService";
+	property name="executorCompletionService";
 
-	public function init( completionService ){
+	public function init( executorCompletionService ){
 		structAppend( variables, arguments );
 		return this;
 	}
@@ -20,7 +20,7 @@ component output="false" accessors="true"{
 		
 		try
 		{
-			var thisTask = completionService.take();
+			var thisTask = executorCompletionService.take();
 		} catch( any e )
 		{
 			writeLog("Error in Completion Task polling the queue : #e.getMessage()#; #e.getDetail()#");
@@ -37,7 +37,7 @@ component output="false" accessors="true"{
 		    	writeLog("Error in Completion Task polling the queue : #e.getMessage()#; #e.getDetail()#");
 		    }
 
-			thisTask = completionService.poll();
+			thisTask = executorCompletionService.poll();
 		}
 		
 		try

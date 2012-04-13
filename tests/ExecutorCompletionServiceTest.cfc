@@ -1,7 +1,7 @@
 component extends="mxunit.framework.TestCase"{
 
 	function setUp(){
-		service = new cfconcurrent.CompletionService(serviceName="unittest", completionQueueProcessFrequency=1);
+		service = new cfconcurrent.ExecutorCompletionService(serviceName="unittest", completionQueueProcessFrequency=1);
 		service.setLoggingEnabled( true );
 		completionTask = new fixture.VariablesCollectingTaskFixture();
 		service.setCompletionQueueProcessTask( completionTask );
@@ -33,7 +33,7 @@ component extends="mxunit.framework.TestCase"{
 		assertEquals( 0, structCount(service.getThisStorageScope() ) );
 	}
 
-	function completionService_publishes_finished_tasks(){
+	function executorCompletionService_publishes_finished_tasks(){
 		service.start();
 		var task1 = new fixture.SimpleCallableTask("task1");
 		var task2 = new fixture.SimpleCallableTask("task2");

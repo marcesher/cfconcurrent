@@ -1,20 +1,20 @@
 component extends="cfconcurrent.Application"{
 
-	this.name = "cfconcurrent_completionService";
+	this.name = "cfconcurrent_executorCompletionService";
 
 
 	function onApplicationStart(){
 		writeLog("Starting #application.applicationName# Completion Service");
 		//a maxConcurrent of 0 will cause the service to default to the number of Available Processors + 1
-		application.completionService = createObject("component", "cfconcurrent.CompletionService")
-			.init( serviceName = "completionServiceExample",
+		application.executorCompletionService = createObject("component", "cfconcurrent.ExecutorCompletionService")
+			.init( serviceName = "executorCompletionServiceExample",
 					maxConcurrent = 0,
 					completionQueueProcessFrequency = 2 );
-		application.completionService.setLoggingEnabled( true );
+		application.executorCompletionService.setLoggingEnabled( true );
 		application.completionTask = createObject("component", "CompletionTask");
-		application.completionService.setCompletionQueueProcessTask( application.completionTask );
+		application.executorCompletionService.setCompletionQueueProcessTask( application.completionTask );
 
-		application.completionService.start();
+		application.executorCompletionService.start();
 	}
 
 	function onRequestStart(){
@@ -30,7 +30,7 @@ component extends="cfconcurrent.Application"{
 
 	function onApplicationStop(){
 		writeLog("Stopping #application.applicationName# Completion Service");
-		application.completionService.stop();
+		application.executorCompletionService.stop();
 	}
 
 }

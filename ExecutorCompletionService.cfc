@@ -1,4 +1,4 @@
-component extends="ExecutorService" accessors="true" output="false"{
+component extends="AbstractExecutorService" accessors="true" output="false"{
 
 	property name="completionQueueProcessFrequency" type="numeric";
 	property name="completionQueueProcessTask";
@@ -8,7 +8,7 @@ component extends="ExecutorService" accessors="true" output="false"{
 	property name="workQueue";
 	property name="completionQueue";
 	property name="workExecutor";
-	property name="completionService";
+	property name="executorCompletionService";
 	property name="completionQueueProcessService";
 
 	variables.completionQueueProcessTask = "";
@@ -23,22 +23,35 @@ component extends="ExecutorService" accessors="true" output="false"{
 	  @maxCompletionQueueSize
 	*/
 	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+
+		super.init( serviceName, objectFactory );
 		structAppend( variables, arguments );
-		return super.init( serviceName, maxConcurrent, maxWorkQueueSize, objectFactory );
+		if( maxConcurrent LTE 0 ){
+			variables.maxConcurrent = getProcessorCount() + 1;
+		}
+
+		return this;
 	}
 
 	public function start(){
-		super.start();
-		variables.completionQueue = objectFactory.createQueue( maxCompletionQueueSize );
-		variables.completionService = objectFactory.createCompletionService( workExecutor, completionQueue );
-		setSubmissionTarget( completionService );
 
-		variables.completionQueueProcessService = new ScheduledExecutorService( serviceName, 1, objectFactory ).start();
+		variables.workQueue = objectFactory.createQueue( maxWorkQueueSize );
+
+		//TODO: extract this policy and make it settable
+		variables.workExecutor = objectFactory.createThreadPoolExecutor( maxConcurrent, workQueue, "DiscardPolicy" );
+		variables.completionQueue = objectFactory.createQueue( maxCompletionQueueSize );
+		variables.executorCompletionService = objectFactory.createCompletionService( workExecutor, completionQueue );
+		setSubmissionTarget( executorCompletionService );
+
+		//store the executor for sane destructability
+		storeExecutor( "workExecutor", variables.workExecutor );
+
+		variables.completionQueueProcessService = new ScheduledThreadPoolExecutor( serviceName, 1, objectFactory ).start();
 
 		//in the event that a completion task has been set prior to start(), we'll schedule it now
 		scheduleCompletionTask();
 
-		return this;
+		return super.start();
 	}
 
 	/**
@@ -56,7 +69,7 @@ component extends="ExecutorService" accessors="true" output="false"{
 		if( structKeyExists( variables, "completionQueueProcessService") AND NOT isSimpleValue(variables.completionQueueProcessTask) ){
 			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency#" );
 
-			completionQueueProcessTask.setCompletionService( getCompletionService() );
+			completionQueueProcessTask.setExecutorCompletionService( getExecutorCompletionService() );
 			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, "seconds");
 		}
 	}

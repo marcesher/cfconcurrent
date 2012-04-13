@@ -9,10 +9,10 @@ component extends="cfconcurrent.Application"{
 
 
 	function onApplicationStart(){
-		application.completionService = createObject("component", "cfconcurrent.CompletionService").init("ormInExecutor", 0, 2);
+		application.executorCompletionService = createObject("component", "cfconcurrent.ExecutorCompletionService").init("ormInExecutor", 0, 2);
 		application.completionTask = createObject("component", "cfconcurrent.examples.ormInExecutor.model.CompletionTask");
-		application.completionService.setCompletionQueueProcessTask( application.completionTask );
-		application.completionService.start();
+		application.executorCompletionService.setCompletionQueueProcessTask( application.completionTask );
+		application.executorCompletionService.start();
 	}
 
 	function onRequestStart(){
@@ -27,7 +27,7 @@ component extends="cfconcurrent.Application"{
 	}
 
 	function onApplicationStop(){
-		application.completionService.stop();
+		application.executorCompletionService.stop();
 	}
 
 }

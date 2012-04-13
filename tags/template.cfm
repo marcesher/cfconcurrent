@@ -62,8 +62,8 @@
 	            <ul class="nav nav-list">
 	              <li class="nav-header">Examples</li>
 	              <li><a href="#root#examples/ExecutorService">Executor Service</a></li>
-	              <li><a href="#root#examples/CompletionService">Completion Service</a></li>
-	              <li><a href="#root#examples/ScheduledExecutorService">Scheduled Executor</a></li>
+	              <li><a href="#root#examples/ExecutorCompletionService">Executor Completion Service</a></li>
+	              <li><a href="#root#examples/ScheduledThreadPoolExecutor">Scheduled Executor</a></li>
 	              <li><a href="#root#ormInExecutor">Using ORM in an Executor Service</a></li>
 	              <li><a href="#root#examples/stopAll.cfm">Stop any running Examples services</a></li>
 	              <li class="nav-header">Deploying CFConcurrent</li>

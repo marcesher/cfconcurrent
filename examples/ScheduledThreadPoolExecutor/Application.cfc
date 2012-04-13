@@ -1,11 +1,11 @@
 component extends="cfconcurrent.Application"{
 
-	this.name = "cfconcurrent_scheduledExecutorService";
+	this.name = "cfconcurrent_ScheduledThreadPoolExecutor";
 
 
 	function onApplicationStart(){
-		application.executorService = createObject("component", "cfconcurrent.ScheduledExecutorService")
-			.init( serviceName = "scheduledExecutorServiceExample", maxConcurrent = 0 );
+		application.executorService = createObject("component", "cfconcurrent.ScheduledThreadPoolExecutor")
+			.init( serviceName = "ScheduledThreadPoolExecutorExample", maxConcurrent = 0 );
 		application.executorService.setLoggingEnabled( true );
 		application.executorService.start();
 

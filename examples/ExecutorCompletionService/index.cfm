@@ -1,7 +1,7 @@
 <cfimport prefix="tags" taglib="../../tags"/>
 
-<cfset workQueueSize = application.completionService.getWorkQueue().size()>
-<cfset completionQueueSize = application.completionService.getCompletionQueue().size()>
+<cfset workQueueSize = application.executorCompletionService.getWorkQueue().size()>
+<cfset completionQueueSize = application.executorCompletionService.getCompletionQueue().size()>
 
 
 <tags:template root="../../">

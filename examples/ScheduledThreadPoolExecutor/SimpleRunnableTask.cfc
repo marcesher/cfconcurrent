@@ -23,7 +23,7 @@ component{
 
 		try{
 			results.runCount++;
-			writeLog("Inside run for id #results.id#! RunCount is now #results.runCount#. Run ScheduledExecutorService/index.cfm?stop to shut down this heartbeat.")
+			writeLog("Inside run for id #results.id#! RunCount is now #results.runCount#. Run ScheduledThreadPoolExecutor/index.cfm?stop to shut down this heartbeat.")
 		} catch( any e ){
 			writeLog("OH NOES!!!!! #e.message#; #e.detail#");
 			results.error = e;

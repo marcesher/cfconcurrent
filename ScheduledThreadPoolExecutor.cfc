@@ -1,18 +1,14 @@
 /**
 * http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html
 */
-component extends="AbstractExecutorService" accessors="true" output="false"{
+component extends="ExecutorService" accessors="true" output="false"{
 
 	property name="scheduledExecutor";
 	property name="storedTasks" type="struct";
 
 	public function init( String serviceName, maxConcurrent=0, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
-		super.init( serviceName, objectFactory );
-		structAppend( variables, arguments );
-		if( maxConcurrent LTE 0 ){
-			variables.maxConcurrent = getProcessorCount() + 1;
-		}
+		super.init( serviceName, maxConcurrent, -1, objectFactory );
 
 		storedTasks = {};
 		return this;
@@ -23,8 +19,8 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 
 		//store the executor for sane destructability
 		storeExecutor( "scheduledExecutor", variables.scheduledExecutor );
-
-		return super.start();
+		status = "started";
+		return this;
 	}
 
 	public function scheduleAtFixedRate( id, task, initialDelay, period, timeUnit="seconds" ){
