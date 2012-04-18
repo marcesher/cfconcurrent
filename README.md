@@ -61,3 +61,8 @@ Support or Contact
 
 Post issues to https://github.com/marcesher/cfconcurrent/issues. 
 Pull requests should have accompanying MXUnit tests. *If it's not tested, it's not accepted*
+
+License
+--------
+
+CFConcurrent is published under the MIT license.
