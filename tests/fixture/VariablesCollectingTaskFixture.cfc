@@ -8,7 +8,7 @@ component extends="cfconcurrent.AbstractCompletionTask"{
 		return allCollected;
 	}
 	
-	function publish( array results ){
+	function process( array results ){
 		writeLog("Publishing results!");
 		variables.allCollected.addAll( results );
 	}

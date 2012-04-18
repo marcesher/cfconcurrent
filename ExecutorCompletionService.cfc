@@ -22,7 +22,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	  @maxWorkQueueSize
 	  @maxCompletionQueueSize
 	*/
-	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, timeUnit="seconds", numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
 		super.init( serviceName, objectFactory );
 		structAppend( variables, arguments );
@@ -67,10 +67,10 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	private function scheduleCompletionTask(){
 		logMessage("Starting to schedule completion task");
 		if( structKeyExists( variables, "completionQueueProcessService") AND NOT isSimpleValue(variables.completionQueueProcessTask) ){
-			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency#" );
+			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency# #timeUnit#" );
 
 			completionQueueProcessTask.setExecutorCompletionService( getExecutorCompletionService() );
-			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, "seconds");
+			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, objectFactory.getTimeUnitByName( timeUnit ));
 		}
 	}
 

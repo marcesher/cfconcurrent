@@ -30,7 +30,7 @@
 		</p>
 
 		<p>Here we submit new tasks to the completion service. The Completion Task is configured in Application.cfc to run every 2 seconds.
-		Watch your CF Log to see the output of the publish() method.</p>
+		Watch your CF Log to see the output of the process() method.</p>
 	  </div><!-- /hero -->
 
 	  <div class="row-fluid">

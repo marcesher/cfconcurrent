@@ -1,5 +1,5 @@
 /*
-Collects all completed futures and pushes them to a publish() method. Implements the java.lang.Runnable interface
+Collects all completed futures and pushes them to a process() method. Implements the java.lang.Runnable interface
  */
 component output="false" accessors="true"{
 
@@ -10,7 +10,7 @@ component output="false" accessors="true"{
 		return this;
 	}
 	
-	public function publish( array results ){
+	public function process( array results ){
 		writeLog("OVERRIDE ME!");
 	}
 
@@ -43,14 +43,14 @@ component output="false" accessors="true"{
 		try
 		{
 			if( NOT arrayIsEmpty(allResults) ){
-				publish( allResults );
+				process( allResults );
 			} else {
 				writeLog("Results were empty...");
 			}
 		}
 		catch( Any e )
 		{
-			writeLog("Error in Completion Task publish : #e.getMessage()#; #e.getDetail()#")
+			writeLog("Error in Completion Task process : #e.getMessage()#; #e.getDetail()#")
 		}
 
 	}

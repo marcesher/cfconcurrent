@@ -20,8 +20,8 @@
 		</p>
 
 		<p>
-			CFConcurrent makes this all even easier. You needn't write the polling code... you simply write a "publisher" CFC that exposes a "publish( array_of_results )" method,
-			and whenever the completion queue is polled, it'll send the results to your publish() implementation.
+			CFConcurrent makes this all even easier. You needn't write the polling code... you simply write a "processor" CFC that exposes a "process( array_of_results )" method,
+			and whenever the completion queue is polled, it'll send the results to your process() implementation.
 		</p>
 		<p>
 			If you need to submit your task and need to wait for its result -- and you do not need your tasks to be put into a completion queue for later processing,
