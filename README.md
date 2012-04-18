@@ -50,6 +50,13 @@ Gratitude
 
 CFConcurrent owes a great deal to [Mark Mandel](http://www.compoundtheory.com/) and JavaLoader. While CFConcurrent uses native Java proxy object creation on CF10, it requires JavaLoader on CF9. This project would not be possible today without JavaLoader.
 
+History
+-------
+
+Doug Lea began `util.concurrent` in 1998, just a few years after the release of both Java and CF version 1. In 2004, with Java 5, `util.concurrent` was brought into the JDK as an official package, named `java.util.concurrent`. Thus, 3 years before ColdFusion received multithreading capabilities via CFThread (in CF8), Java provided a vastly superior approach to concurrency. Unfortunately, CF developers could not take advantage of java.util.concurrent because of the inability to pass ColdFusion Component (CFC) instances to a Java library.
+
+This changed in 2011, when Mark Mandel tweaked the Java proxy object creation facility available in JavaLoader to enable CFC instances to be passed to invocation methods in the Java concurrency framework. With this ability, "concurrency as it should be" is now possible in ColdFusion. 
+
 Roadmap
 --------
 
@@ -60,7 +67,7 @@ Support or Contact
 ------------------
 
 Post issues to https://github.com/marcesher/cfconcurrent/issues. 
-Pull requests should have accompanying MXUnit tests. *If it's not tested, it's not accepted*
+Pull requests should have accompanying MXUnit tests. If it's not tested, it's not accepted.
 
 License
 --------
