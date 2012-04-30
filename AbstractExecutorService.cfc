@@ -6,7 +6,6 @@ component output="false" accessors="true"{
 	property name="maxConcurrent" type="numeric";
 	property name="loggingEnabled" type="boolean";
 	property name="logName" type="string";
-	property name="timeUnit" hint="a java.util.concurrent.TimeUnit instance";
 	property name="submissionTarget";
 
 	/*
@@ -37,7 +36,6 @@ component output="false" accessors="true"{
 	public function init( String serviceName, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
 		structAppend( variables, arguments );
-		variables.timeUnit = objectFactory.createTimeUnit();
 		return this;
 	}
 
@@ -50,7 +48,7 @@ component output="false" accessors="true"{
 		return this;
 	}
 
-	public function stop( timeout=100, timeUnit="milliseconds" ){
+	public function stop( timeout=100, timeUnit="#objectFactory.MILLISECONDS#" ){
 		shutdownAllExecutors( timeout, timeUnit );
 		status = "stopped";
 		return this;
@@ -162,12 +160,12 @@ component output="false" accessors="true"{
 		return this;
 	}
 
-	package function shutdownAllExecutors( timeout=100, timeUnit="milliseconds" ){
+	package function shutdownAllExecutors( timeout=100, timeUnit="#objectFactory.MILLISECONDS#" ){
 		if( NOT structIsEmpty( getThisStorageScope() ) ){
 			var scope = getThisStorageScope();
 			for( var executor in scope ){
 				writeLog("Waiting #timeout# #timeUnit# for tasks to complete and then shutting down executor named #executor#");
-				scope[executor].awaitTermination( timeout, objectFactory.getTimeUnitByName( timeUnit ) );
+				scope[executor].awaitTermination( timeout, timeUnit );
 				scope[executor].shutdownNow();
 			}
 			structClear( scope );

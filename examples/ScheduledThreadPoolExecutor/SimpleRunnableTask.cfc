@@ -1,6 +1,6 @@
 component{
 
-	results = { created = now(), createTick = getTickCount(), error={}, runCount = 0, lastTick=0, lastTS = '' };
+	results = { created = now(), createTick = getTickCount(), error={}, runCount = 0, lastTick=0, lastTS = '', uuid = createUUID() };
 	runStatus = "running";
 
 	function init( id ){

@@ -8,6 +8,15 @@ component output="false" accessors="true"{
 	variables.serverScopeName = "__cfconcurrentJavaLoader";
 	timeUnit = createTimeUnit();
 
+	//conveniences... we work a lot with timeunit so let's make it a bit easier
+	this.nanoseconds = timeUnit.NANOSECONDS;
+	this.microseconds = timeUnit.MICROSECONDS;
+	this.milliseconds = timeUnit.MILLISECONDS;
+	this.seconds = timeUnit.SECONDS;
+	this.minutes = timeUnit.MINUTES;
+	this.hours = timeUnit.HOURS;
+	this.days = timeUnit.DAYS;
+
 	public function init(){
 		if( NOT supportsNativeProxy ){
 			writeLog("Native createDynamicProxy not supported... falling back to JavaLoader. All Hail Galaxar! er... Mark Mandel!");
@@ -77,27 +86,6 @@ component output="false" accessors="true"{
 
 	public function createCallerRunsPolicy(){
 		return createRejectionPolicyByName("CallerRunsPolicy");
-	}
-
-	public function getTimeUnitByName( unit="seconds" ){
-		switch(unit){
-			case "seconds":
-				return timeUnit.SECONDS;
-			case "milliseconds":
-				return timeUnit.MILLISECONDS;
-			case "nanoseconds":
-				return timeUnit.NANOSECONDS;
-			case "microseconds":
-				return timeUnit.MICROSECONDS;
-			case "minutes":
-				return timeUnit.MINUTES;
-			case "hours":
-				return timeUnit.HOURS;
-			case "days":
-				return timeUnit.DAYS;
-			default:
-				throw("unknown unit #arguments.unit#. Valid values are 'seconds', 'nanoseconds', 'microseconds', 'milliseconds', 'minutes', 'hours', 'days'");
-		}
 	}
 
 	public function createSubmittableProxy( object ){

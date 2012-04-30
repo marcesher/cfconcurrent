@@ -11,7 +11,7 @@ component extends="cfconcurrent.Application"{
 
 		//now schedule a runnable task to run every few seconds
 		application.task1 = createObject("component", "SimpleRunnableTask").init( "task1" );
-		application.executorService.scheduleAtFixedRate("task1", application.task1, 0, 2, "seconds");
+		application.executorService.scheduleAtFixedRate("task1", application.task1, 0, 2, application.executorService.getObjectFactory().SECONDS);
 	}
 
 	function onRequestStart(){
@@ -19,7 +19,7 @@ component extends="cfconcurrent.Application"{
 			applicationStop();
 			onApplicationStop();
 		}
-		
+
 		if( structKeyExists(url, "reinit") ){
 			location( "index.cfm", false );
 		}

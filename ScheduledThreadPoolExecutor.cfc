@@ -23,36 +23,32 @@ component extends="ExecutorService" accessors="true" output="false"{
 		return this;
 	}
 
-	public function scheduleAtFixedRate( id, task, initialDelay, period, timeUnit="seconds" ){
-
+	public function scheduleAtFixedRate( id, task, initialDelay, period, timeUnit="#objectFactory.SECONDS#" ){
+		cancelTask( id );
 		var future = scheduledExecutor.scheduleAtFixedRate(
 			objectFactory.createRunnableProxy( task ),
 			initialDelay,
 			period,
-			objectFactory.getTimeUnitByName( timeUnit )
+			timeUnit
 		);
 		storeTask( id, task, future );
 		return future;
 	}
 
-	public function scheduleWithFixedDelay( id, task, initialDelay, delay, timeUnit="seconds" ){
+	public function scheduleWithFixedDelay( id, task, initialDelay, delay, timeUnit="#objectFactory.SECONDS#" ){
+		cancelTask( id );
 		var future = scheduledExecutor.scheduleWithFixedDelay(
 			objectFactory.createRunnableProxy( task ),
 			initialDelay,
 			delay,
-			objectFactory.getTimeUnitByName( timeUnit )
+			timeUnit
 		);
 		storeTask( id, task, future );
 		return future;
 	}
 
 	package function storeTask( id, task, future ){
-
-		lock name="storeScheduledTask_#serviceName#_#id#" timeout="2"{
-			cancelTask( id );
-			storedTasks[ id ] = { task = task, future = future };
-		}
-
+		storedTasks[ id ] = { task = task, future = future };
 		return this;
 	}
 
