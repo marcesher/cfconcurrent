@@ -2,7 +2,6 @@ component extends="cfconcurrent.Application"{
 
 	this.name = "cfconcurrent_executorCompletionService";
 
-
 	function onApplicationStart(){
 		writeLog("Starting #application.applicationName# Completion Service");
 		//a maxConcurrent of 0 will cause the service to default to the number of Available Processors + 1

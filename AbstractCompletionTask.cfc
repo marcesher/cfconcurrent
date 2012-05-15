@@ -17,10 +17,10 @@ component output="false" accessors="true"{
 	public function run(){
 		var allResults = [];		
 		var startTick = getTickCount();
-		
+		var thisTask = javacast( "null", 0 );
 		try
 		{
-			var thisTask = executorCompletionService.take();
+			thisTask = executorCompletionService.poll();
 		} catch( any e )
 		{
 			writeLog("Error in Completion Task polling the queue : #e.getMessage()#; #e.getDetail()#");
