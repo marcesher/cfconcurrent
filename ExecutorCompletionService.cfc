@@ -48,11 +48,19 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 		storeExecutor( "workExecutor", variables.workExecutor );
 
 		variables.completionQueueProcessService = new ScheduledThreadPoolExecutor( serviceName, 1, objectFactory ).start();
+		variables.completionQueueProcessService.setLoggingEnabled( getLoggingEnabled() );
 
 		//in the event that a completion task has been set prior to start(), we'll schedule it now
 		scheduleCompletionTask();
 
 		return super.start();
+	}
+
+	public function stop( timeout=100, timeUnit="#objectFactory.MILLISECONDS#" ){
+		if( isStarted() ){
+			variables.completionQueueProcessService.stop( argumentCollection = arguments );
+		}
+		return super.stop( argumentCollection = arguments );
 	}
 
 	/**

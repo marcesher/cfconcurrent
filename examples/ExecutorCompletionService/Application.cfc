@@ -11,6 +11,7 @@ component extends="cfconcurrent.Application"{
 					completionQueueProcessFrequency = 2 );
 		application.executorCompletionService.setLoggingEnabled( true );
 		application.completionTask = createObject("component", "CompletionTask");
+		application.completionTask.setLoggingEnabled( true );
 		application.executorCompletionService.setCompletionQueueProcessTask( application.completionTask );
 
 		application.executorCompletionService.start();
