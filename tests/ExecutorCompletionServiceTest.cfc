@@ -33,6 +33,21 @@ component extends="mxunit.framework.TestCase"{
 		assertEquals( 0, structCount(service.getThisStorageScope() ) );
 	}
 
+	function stop_clears_internal_scheduler_storage(){
+		service.start();
+		var scheduler = service.getcompletionQueueProcessService();
+
+		assertTrue( scheduler.isStarted() );
+		assertNotEquals( 0, structCount(scheduler.getThisStorageScope() ) );
+
+		service.stop();
+
+		assertTrue( scheduler.isStopped() );
+		assertEquals( 0, structCount(scheduler.getThisStorageScope() ) );
+
+
+	}
+
 	function executorCompletionService_publishes_finished_tasks(){
 		service.start();
 		var task1 = new fixture.SimpleCallableTask("task1");
