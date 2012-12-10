@@ -1,3 +1,5 @@
+**WARNING**: A user recently discovered that a massive memory leak exists when running this on CF9. Therefore, **it is not safe to use this library on Adobe ColdFusion 9**. The problem is not in the library but in the interaction between Java executors and ColdFusion. I will attempt to work with Adobe to identify a fix.  ColdFusion 10 is unaffected and behaves as expected.
+
 Welcome to CFConcurent
 ======================
 
@@ -5,7 +7,7 @@ CFConcurrent simplifies the use of the Java Concurrency Framework
 ([java tutorial](http://docs.oracle.com/javase/tutorial/essential/concurrency/executors.html) | [javadoc](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html))
 in ColdFusion applications. 
 
-CFConcurrent runs on **CF9+**.
+CFConcurrent runs on **CF10+**.
 
 
 Although CFThread is suitable for management-free fire-and-forget concurrency, robust production applications
