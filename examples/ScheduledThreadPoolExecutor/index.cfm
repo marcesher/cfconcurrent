@@ -28,7 +28,7 @@
 	    <div class="span4">
 	      <h2>Current Running Task</h2>
 		     <p>
-				When this application initializes, a new SimpleRunnableTask is scheduled to run ever few seconds.
+				When this application initializes, a new SimpleRunnableTask is scheduled to run every few seconds.
 				It keeps an internal count of the number of times it has run.
 			</p>
 			<p>

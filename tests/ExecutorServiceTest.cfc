@@ -2,6 +2,7 @@ component extends="mxunit.framework.TestCase"{
 
 	function setUp(){
 		service = new cfconcurrent.ExecutorService(serviceName="unittest");
+		objectFactory = service.getObjectFactory();
 		service.setLoggingEnabled( true );
 		service.start();
 	}
@@ -59,7 +60,7 @@ component extends="mxunit.framework.TestCase"{
 		}
 
 		//invokeAll with a 20-ms timeout
-		var results = service.invokeAll( tasks, 20, "milliseconds" );
+		var results = service.invokeAll( tasks, 20, objectFactory.MILLISECONDS );
 
 		for( future in results ){
 			if( NOT future.isCancelled() ){
@@ -89,7 +90,7 @@ component extends="mxunit.framework.TestCase"{
 		}
 
 		//invokeAny with a 20-ms timeout
-		var results = service.invokeAny( tasks, 20, "milliseconds" );
+		var results = service.invokeAny( tasks, 20, objectFactory.MILLISECONDS );
 
 	}
 

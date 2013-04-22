@@ -3,10 +3,12 @@
 <cfparam name="url.waitTime" default="200">
 
 <cfscript>
+objectFactory = application.executorService.getObjectFactory();
+
 /*Example 1: submit() with timeout */
 task = new HelloTask( url.sleepTime );
 future = application.executorService.submit( task );
-callResultWithTimeout = future.get( url.waitTime, application.executorService.getTimeUnit().MILLISECONDS );
+callResultWithTimeout = future.get( url.waitTime, objectFactory.MILLISECONDS );
 
 /*Example 2: submit() with no timeout*/
 task = new HelloTask( url.sleepTime );
@@ -46,7 +48,7 @@ for( i = 1; i <= 25; i++ ){
 	arrayAppend( tasks, new HelloTask( 15 ) );
 }
 
-futures = application.executorService.invokeAll( tasks, 15, "milliseconds" );
+futures = application.executorService.invokeAll( tasks, 15, objectFactory.MILLISECONDS );
 /*for display purposes, stuff all the "get()" results into an array so we can collapse it*/
 invokeAllResultsWithTimeout = [];
 for( future in futures ){

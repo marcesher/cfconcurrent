@@ -1,6 +1,7 @@
 component extends="AbstractExecutorService" accessors="true" output="false"{
 
 	property name="completionQueueProcessFrequency" type="numeric";
+	property name="comletionQueueProcessTimeUnit";
 	property name="completionQueueProcessTask";
 	property name="completionQueueProcessTaskProxy";
 
@@ -22,7 +23,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	  @maxWorkQueueSize
 	  @maxCompletionQueueSize
 	*/
-	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, timeUnit="seconds", numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
+	public function init( serviceName, numeric maxConcurrent=0, numeric completionQueueProcessFrequency=30, comletionQueueProcessTimeUnit="#createObject( 'java', 'java.util.concurrent.TimeUnit' ).SECONDS#", numeric maxWorkQueueSize=10000, numeric maxCompletionQueueSize=100000, objectFactory="#createObject('component', 'ObjectFactory').init()#" ){
 
 		super.init( serviceName, objectFactory );
 		structAppend( variables, arguments );
@@ -47,6 +48,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 		storeExecutor( "workExecutor", variables.workExecutor );
 
 		variables.completionQueueProcessService = new ScheduledThreadPoolExecutor( serviceName, 1, objectFactory ).start();
+		variables.completionQueueProcessService.setLoggingEnabled( getLoggingEnabled() );
 
 		//in the event that a completion task has been set prior to start(), we'll schedule it now
 		scheduleCompletionTask();
@@ -54,10 +56,17 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 		return super.start();
 	}
 
+	public function stop( timeout=100, timeUnit="#objectFactory.MILLISECONDS#" ){
+		if( isStarted() ){
+			variables.completionQueueProcessService.stop( argumentCollection = arguments );
+		}
+		return super.stop( argumentCollection = arguments );
+	}
+
 	/**
-	* A Task CFC with a void run() method
+	* A Task CFC with a void run() method. It is expected that you will init() the service before setting the completion queue process task
 	*/
-	public function setCompletionQueueProcessTask( completionQueueProcessTask ){
+	public function setCompletionQueueProcessTask( completionQueueProcessTask, numeric completionQueueProcessFrequency="#variables.completionQueueProcessFrequency#", comletionQueueProcessTimeUnit="#variables.comletionQueueProcessTimeUnit#" ){
 
 		structAppend( variables, arguments );
 
@@ -67,10 +76,9 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	private function scheduleCompletionTask(){
 		logMessage("Starting to schedule completion task");
 		if( structKeyExists( variables, "completionQueueProcessService") AND NOT isSimpleValue(variables.completionQueueProcessTask) ){
-			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency# #timeUnit#" );
-
+			logMessage( "scheduling completion task at rate of #completionQueueProcessFrequency# #comletionQueueProcessTimeUnit#" );
 			completionQueueProcessTask.setExecutorCompletionService( getExecutorCompletionService() );
-			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, objectFactory.getTimeUnitByName( timeUnit ));
+			return completionQueueProcessService.scheduleAtFixedRate( completionQueueProcessTaskID, completionQueueProcessTask, completionQueueProcessFrequency, completionQueueProcessFrequency, comletionQueueProcessTimeUnit);
 		}
 	}
 

@@ -3,6 +3,7 @@ component extends="mxunit.framework.TestCase"{
 	function setUp(){
 		service = new cfconcurrent.ScheduledThreadPoolExecutor( serviceName="unittest" );
 		service.setLoggingEnabled( true );
+		objectFactory = service.getObjectFactory();
 	}
 
 	function tearDown(){
@@ -37,8 +38,8 @@ component extends="mxunit.framework.TestCase"{
 		service.start();
 		var task1 = new fixture.SimpleRunnableTask("task1");
 		var task2 = new fixture.SimpleRunnableTask("task2");
-		var future1 = service.scheduleAtFixedRate("task1", task1, 0, 100, "milliseconds");
-		var future2 = service.scheduleAtFixedRate("task2", task2, 1, 100, "milliseconds");
+		var future1 = service.scheduleAtFixedRate("task1", task1, 0, 100, objectFactory.MILLISECONDS);
+		var future2 = service.scheduleAtFixedRate("task2", task2, 1, 100, objectFactory.MILLISECONDS);
 
 		sleep(500);
 		var task1Results = task1.getResults();

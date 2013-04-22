@@ -40,9 +40,9 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	* If the service is not running, tasks are ignored.
 	* @tasks An array of task instances. A task CFC must expose a call() method that returns a result
 	* @timeout Maximum time to wait. 0 indicates to wait until completion
-	* @timeUnit TimeUnit of the timeout argument, as a string. Defaults to "seconds".
+	* @timeUnit TimeUnit of the timeout argument. Defaults to TimeUnit.SECONDS.
 	*/
-	public function invokeAll( array tasks, timeout=0, timeUnit="seconds" ){
+	public function invokeAll( array tasks, timeout=0, timeUnit="#objectFactory.SECONDS#" ){
 		var results = [];
 		var proxies = [];
 
@@ -54,7 +54,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 			if( timeout LTE 0 ){
 				return getSubmissionTarget().invokeAll( proxies );
 			} else {
-				return getSubmissionTarget().invokeAll( proxies, timeout, objectFactory.getTimeUnitByName( timeUnit ) );
+				return getSubmissionTarget().invokeAll( proxies, timeout, timeUnit );
 			}
 
 		} else if( isPaused() ) {
@@ -69,9 +69,9 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 	* If the service is not running, tasks are ignored.
 	* @tasks An array of task instances. A task CFC must expose a call() method that returns a result
 	* @timeout Maximum time to wait. 0 indicates to wait until completion
-	* @timeUnit TimeUnit of the timeout argument, as a string. Defaults to "seconds".
+	* @timeUnit TimeUnit of the timeout argument. Defaults to TimeUnit.SECONDS
 	*/
-	public function invokeAny( array tasks, timeout=0, timeUnit="seconds" ){
+	public function invokeAny( array tasks, timeout=0, timeUnit="#objectFactory.SECONDS#" ){
 		var results = [];
 		var proxies = [];
 
@@ -83,7 +83,7 @@ component extends="AbstractExecutorService" accessors="true" output="false"{
 			if( timeout LTE 0 ){
 				return getSubmissionTarget().invokeAny( proxies );
 			} else {
-				return getSubmissionTarget().invokeAny( proxies, timeout, objectFactory.getTimeUnitByName( timeUnit ) );
+				return getSubmissionTarget().invokeAny( proxies, timeout, timeUnit );
 			}
 
 		} else if( isPaused() ) {
