@@ -30,7 +30,7 @@ component extends="cfconcurrent.Application"{
 
 	function onApplicationStop(){
 		writeLog("Stopping #application.applicationName# Completion Service");
-		application.executorCompletionService.stop();
+		application.executorCompletionService.stop(timeout=5000);
 	}
 
 }
