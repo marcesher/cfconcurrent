@@ -5,6 +5,8 @@ component output="false" accessors="true"{
 
 	property name="executorCompletionService";
 	property name="loggingEnabled" type="boolean";
+	property name="lastError";
+
 	variables.loggingEnabled = false;
 
 	public function init( executorCompletionService ){
@@ -16,6 +18,8 @@ component output="false" accessors="true"{
 		writeLog("OVERRIDE ME!");
 	}
 
+
+
 	public function run(){
 		var allResults = [];
 		var thisTask = javacast( "null", 0 );
@@ -24,18 +28,20 @@ component output="false" accessors="true"{
 			thisTask = executorCompletionService.poll();
 		} catch( any e )
 		{
-			writeLog("Error in Completion Task polling the queue : #e.getMessage()#; #e.getDetail()#");
+			logError(e, "Error in Completion Task polling the queue");
 		}
 
 		while(  NOT isNull( thisTask ) ){
 
 			try
 		    {
-		    	arrayAppend( allResults, thisTask.get() );
+		    	var futureResult = thisTask.get();
+		    	arrayAppend( allResults, futureResult );
 		    }
 		    catch( any e )
 		    {
-		    	writeLog("Error in Completion Task polling the queue : #e.getMessage()#; #e.getDetail()#");
+		    	logError(e, "Error in Completion Task polling the queue");
+		    	arrayAppend( allResults, e );
 		    }
 
 			thisTask = executorCompletionService.poll();
@@ -51,9 +57,14 @@ component output="false" accessors="true"{
 		}
 		catch( Any e )
 		{
-			writeLog("Error in Completion Task process : #e.getMessage()#; #e.getDetail()#")
+			logError(e, "Error in Completion Task process");
 		}
 
+	}
+
+	function logError( error, message ){
+		writeLog("#message# : #error.message#; #error.detail#");
+		lastError = error;
 	}
 
 }

@@ -7,10 +7,13 @@ component extends="cfconcurrent.AbstractCompletionTask"{
 	function getAllCollected(){
 		return allCollected;
 	}
-	
+
 	function process( array results ){
 		writeLog("Publishing results!");
-		variables.allCollected.addAll( results );
+		//variables.allCollected.addAll( results );
+		for( var r in results ){
+			arrayAppend(variables.allCollected, r);
+		}
 	}
 
 }

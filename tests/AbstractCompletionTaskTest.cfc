@@ -23,7 +23,7 @@ component extends="mxunit.framework.TestCase"{
 		javaCompletionService.submit(proxy1);
 		javaCompletionService.submit(proxy2);
 
-		sleep(10);
+		sleep(50);
 
 		completionTask.run();
 
@@ -31,4 +31,16 @@ component extends="mxunit.framework.TestCase"{
 
 		assertEquals( 2, arrayLen(completionTask.getAllCollected()) );
 	}
+
+	function last_error_is_captured(){
+		var task1 = new fixture.ErrorThrowingTask("task1");
+		var factory = executorCompletionService.getObjectFactory();
+		var proxy1 = factory.createSubmittableProxy(task1);
+		javaCompletionService.submit(proxy1);
+		sleep(10);
+		completionTask.run();
+		debug(completionTask.getAllCollected());
+		debug(completionTask.getLastError());
+	}
+
 }
