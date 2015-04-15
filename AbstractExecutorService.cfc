@@ -11,7 +11,7 @@ component output="false" accessors="true"{
 	/*
 		storage scope is a server-scoped bucket into which we put "things that can shut down";
 		we need this as a safeguard against developers who don't heed instructions to *ensure* that
-		stop() is called onApplicationStop().
+		stop() is called in onApplicationEnd().
 
 		Any executors we create will live in this scope, and on initialization, any previously created
 		executors will be shutdown immediately and then removed from scope

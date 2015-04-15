@@ -9,12 +9,10 @@ component{
 	function onRequestStart(){
 		if( structKeyExists(url, "reinit") ){
 			applicationStop();
-			onApplicationStop();
-
 		}
 	}
 
-	function onApplicationStop(){
+	function onApplicationEnd(required struct applicationScope){
 	}
-
+	
 }

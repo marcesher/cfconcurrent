@@ -20,7 +20,6 @@ component extends="cfconcurrent.Application"{
 	function onRequestStart(){
 		if( structKeyExists(url, "stop") OR structKeyExists(url, "reinit") ){
 			applicationStop();
-			onApplicationStop();
 		}
 
 		if( structKeyExists(url, "reinit") ){
@@ -28,9 +27,11 @@ component extends="cfconcurrent.Application"{
 		}
 	}
 
-	function onApplicationStop(){
-		writeLog("Stopping #application.applicationName# Completion Service");
-		application.executorCompletionService.stop(timeout=5000);
+	function onApplicationEnd(required struct applicationScope){
+		if (structKeyExists(arguments.applicationScope, "executorCompletionService")) {
+			writeLog("Stopping #application.applicationName# Completion Service");
+			arguments.applicationScope.executorCompletionService.stop(timeout=5000);
+		}
 	}
 
 }
