@@ -10,12 +10,12 @@ component extends="ExecutorService" accessors="true" output="false"{
 
 		super.init( serviceName, maxConcurrent, -1, objectFactory );
 
-		storedTasks = {};
+		variables.storedTasks = {};
 		return this;
 	}
 
 	public function start(){
-		variables.scheduledExecutor = objectFactory.createScheduledThreadPoolExecutor( maxConcurrent );
+		variables.scheduledExecutor = variables.objectFactory.createScheduledThreadPoolExecutor( maxConcurrent );
 
 		//store the executor for sane destructability
 		storeExecutor( "scheduledExecutor", variables.scheduledExecutor );
@@ -25,8 +25,8 @@ component extends="ExecutorService" accessors="true" output="false"{
 
 	public function scheduleAtFixedRate( id, task, initialDelay, period, timeUnit="#objectFactory.SECONDS#" ){
 		cancelTask( id );
-		var future = scheduledExecutor.scheduleAtFixedRate(
-			objectFactory.createRunnableProxy( task ),
+		var future = variables.scheduledExecutor.scheduleAtFixedRate(
+			variables.objectFactory.createRunnableProxy( task ),
 			initialDelay,
 			period,
 			timeUnit
@@ -37,8 +37,8 @@ component extends="ExecutorService" accessors="true" output="false"{
 
 	public function scheduleWithFixedDelay( id, task, initialDelay, delay, timeUnit="#objectFactory.SECONDS#" ){
 		cancelTask( id );
-		var future = scheduledExecutor.scheduleWithFixedDelay(
-			objectFactory.createRunnableProxy( task ),
+		var future = variables.scheduledExecutor.scheduleWithFixedDelay(
+			variables.objectFactory.createRunnableProxy( task ),
 			initialDelay,
 			delay,
 			timeUnit
@@ -48,7 +48,7 @@ component extends="ExecutorService" accessors="true" output="false"{
 	}
 
 	package function storeTask( id, task, future ){
-		storedTasks[ id ] = { task = task, future = future };
+		variables.storedTasks[ id ] = { task = task, future = future };
 		return this;
 	}
 
@@ -57,12 +57,12 @@ component extends="ExecutorService" accessors="true" output="false"{
 		The 'future' is the <ScheduledFuture> object returned when submitting the task
 	*/
 	public function cancelTask( id ){
-		if( structKeyExists( storedTasks, id ) ){
-			var task = storedTasks[ id ];
+		if( structKeyExists( variables.storedTasks, id ) ){
+			var task = variables.storedTasks[ id ];
 			var future = task.future;
 			future.cancel( true );
-			scheduledExecutor.purge();
-			structDelete( storedTasks, id );
+			variables.scheduledExecutor.purge();
+			structDelete( variables.storedTasks, id );
 			return task;
 		}
 	}
