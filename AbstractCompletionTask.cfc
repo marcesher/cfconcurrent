@@ -15,7 +15,7 @@ component output="false" accessors="true"{
 	}
 
 	public function process( array results ){
-		writeLog("OVERRIDE ME!");
+		logInfo("OVERRIDE ME!");
 	}
 
 
@@ -52,7 +52,7 @@ component output="false" accessors="true"{
 			if( NOT arrayIsEmpty(allResults) ){
 				process( allResults );
 			} else if( getLoggingEnabled() ) {
-				writeLog("Results were empty...");
+				logInfo("Results were empty...");
 			}
 		}
 		catch( Any e )
@@ -60,6 +60,10 @@ component output="false" accessors="true"{
 			logError(e, "Error in Completion Task process");
 		}
 
+	}
+
+	function logInfo( message ){
+		writeLog(arguments.message);
 	}
 
 	function logError( error, message ){
