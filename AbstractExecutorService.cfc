@@ -44,18 +44,18 @@ component output="false" accessors="true"{
 
 	public function start(){
 		//This will be overridden by implementers
-		status = "started";
+		variables.status = "started";
 		return this;
 	}
 
 	public function stop( timeout=100, timeUnit="#objectFactory.MILLISECONDS#" ){
 		shutdownAllExecutors( timeout, timeUnit );
-		status = "stopped";
+		variables.status = "stopped";
 		return this;
 	}
 
 	public function pause(){
-		status = "paused";
+		variables.status = "paused";
 		return this;
 	}
 
@@ -63,7 +63,7 @@ component output="false" accessors="true"{
 		if( isStopped() ){
 			start();
 		} else {
-			status = "started";
+			variables.status = "started";
 		}
 		return this;
 	}
